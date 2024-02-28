@@ -1,7 +1,4 @@
-<<<<<<< HEAD
+
 # Dependency directories
 /node_modules/
 .env
-=======
-node_modules
->>>>>>> 0ea3ff03 (feat: init setup)
