@@ -53,3 +53,4 @@ junit.xml
 .cdk.staging/
 .parcel-cache/
 !/.projenrc.ts
+.env
