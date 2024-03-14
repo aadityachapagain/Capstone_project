@@ -10,8 +10,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Now you can access the environment variables using os.getenv()
-username = os.getenv("username")
-password = os.getenv("password")
+username = os.getenv("db_username")
+password = os.getenv("db_password")
 
 class compassDB:
     def __init__(self, username, password):
