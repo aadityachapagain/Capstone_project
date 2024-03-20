@@ -7,7 +7,7 @@ import { Card } from "./components/Card";
 import { ReactComponent as MicIcon } from "../../../assets/images/icons/icon_mic.svg";
 import { ReactComponent as ImportIcon } from "../../../assets/images/icons/icon_import.svg";
 import { ReactComponent as AudioIcon } from "../../../assets/images/icons/icon_audio.svg";
-
+import { Link } from "react-router-dom";
 import { ReactComponent as TextIcon } from "../../../assets/images/icons/icon_transcription.svg";
 
 const HomePage = () => {
@@ -48,11 +48,14 @@ const HomePage = () => {
       icon: <AudioIcon />,
     },
   ];
+
   return (
     <div className={styles.root}>
       <div className={styles.header}>
-        <Button variant="outlined" size="medium" onClick={onArchiveClick}>
-          Archive
+        <Button variant="outlined" size="medium">
+          <Link to="/archive" className={styles.customLink}>
+            Archive
+          </Link>
         </Button>
         <div className={styles.content}>
           <div className={styles.content_head}>

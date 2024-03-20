@@ -5,6 +5,8 @@ import { useState } from "react"; // Importing the useState hook from React.
 import Graph from "./components/Graph/Graph"; // Importing the Graph component.
 import ForceGraph from "./components/ForceGraph/ForceGraph"; // Importing the ForceGraph component.
 import { HomePage } from "./components/pages/HomePage";
+import { ArchivePage } from "./components/pages/ArchivePage";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 function App() {
   // Define the data representing nodes and links for the graph visualization.
   const data = {
@@ -121,7 +123,14 @@ function App() {
   //     ) : null}
   //   </div>
   // );
-  return <HomePage />;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/archive" element={<ArchivePage />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
