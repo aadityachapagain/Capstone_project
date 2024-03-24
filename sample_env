@@ -1,0 +1,3 @@
+db_username="Add MongoDB username"
+db_password="Add MongoDB Password"
+azurellm_key='Add Azure Key'
