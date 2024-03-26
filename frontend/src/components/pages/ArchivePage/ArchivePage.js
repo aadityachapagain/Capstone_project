@@ -4,6 +4,7 @@ import Button from "../../ui-elements/Button/Button";
 import {ReactComponent as Logo} from "../../../assets/images/icons/logo.svg";
 import {Table,Header,HeaderRow,Body,Row,HeaderCell,Cell,} from '@table-library/react-table-library/table';
 import datademo from "./datademo.json";
+import makeAPICall from "../../..//api/apiClient.js";
 
 
 const ArchivePage = () => {
@@ -20,6 +21,9 @@ const ArchivePage = () => {
     const handleSearch =(event) =>{
         setSearch(event.target.value);
     }
+
+    //fetch data use api
+    //const datademo = makeAPICall.json()
 
     const data ={
         nodes:datademo.filter((item) =>
