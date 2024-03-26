@@ -1,5 +1,4 @@
 import os
-import openai
 from loguru import logger
 from langchain_openai import AzureChatOpenAI
 from langchain.schema import HumanMessage
