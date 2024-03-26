@@ -6,6 +6,7 @@ import Graph from "./components/Graph/Graph"; // Importing the Graph component.
 import ForceGraph from "./components/ForceGraph/ForceGraph"; // Importing the ForceGraph component.
 import { HomePage } from "./components/pages/HomePage";
 import { ArchivePage } from "./components/pages/ArchivePage";
+import { GraphPage } from "./components/pages/GraphPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 function App() {
   // Define the data representing nodes and links for the graph visualization.
@@ -128,6 +129,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/archive" element={<ArchivePage />} />
+        <Route path="/graph" element={<GraphPage />} />
       </Routes>
     </BrowserRouter>
   );

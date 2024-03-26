@@ -1,0 +1,356 @@
+{
+    "nodes": [
+      {
+        "id": 1,
+        "label": "Jennifer",
+        "group": "Participants",
+        "weight": 5,
+        "reference": [[0, 9], [1039, 1048], [1714, 1722]]
+      },
+      {
+        "id": 2,
+        "label": "Raj",
+        "group": "Participants",
+        "weight": 3,
+        "reference": [[33, 36], [99, 102]]
+      },
+      {
+        "id": 3,
+        "label": "Carlos",
+        "group": "Participants",
+        "weight": 2,
+        "reference": [[382, 388], [523, 529]]
+      },
+      {
+        "id": 4,
+        "label": "Luis",
+        "group": "Participants",
+        "weight": 2,
+        "reference": [[712, 716], [862, 866]]
+      },
+      {
+        "id": 5,
+        "label": "Anita",
+        "group": "Participants",
+        "weight": 2,
+        "reference": [[986, 991], [1100, 1105]]
+      },
+      {
+        "id": 6,
+        "label": "Omar",
+        "group": "Participants",
+        "weight": 2,
+        "reference": [[1314, 1318], [1481, 1485]]
+      },
+      {
+        "id": 7,
+        "label": "Ransomware Incident",
+        "group": "Meeting Agenda Items",
+        "weight": 5,
+        "reference": [[33, 98], [103, 154], [155, 264]]
+      },
+      {
+        "id": 8,
+        "label": "Cloud Migration Project",
+        "group": "Meeting Agenda Items",
+        "weight": 4,
+        "reference": [[382, 522], [530, 627]]
+      },
+      {
+        "id": 9,
+        "label": "IT Operations Initiatives",
+        "group": "Meeting Agenda Items",
+        "weight": 3,
+        "reference": [[712, 861], [867, 1006]]
+      },
+      {
+        "id": 10,
+        "label": "IT Service Management",
+        "group": "Meeting Agenda Items",
+        "weight": 3,
+        "reference": [[986, 1099], [1106, 1313]]
+      },
+      {
+        "id": 11,
+        "label": "Application Development",
+        "group": "Meeting Agenda Items",
+        "weight": 4,
+        "reference": [[1314, 1480], [1486, 1713]]
+      },
+      {
+        "id": 12,
+        "label": "Lessons Learned Report",
+        "group": "Decisions",
+        "weight": 2,
+        "reference": [[265, 311]]
+      },
+      {
+        "id": 13,
+        "label": "Cloud Cost Optimization",
+        "group": "Follow-up Actions",
+        "weight": 2,
+        "reference": [[628, 676]]
+      },
+      {
+        "id": 14,
+        "label": "Modernize Apps with Azure Services",
+        "group": "Follow-up Actions",
+        "weight": 2,
+        "reference": [[677, 711]]
+      },
+      {
+        "id": 15,
+        "label": "IT Security Audit",
+        "group": "Projects/Components",
+        "weight": 2,
+        "reference": [[154, 182]]
+      },
+      {
+        "id": 16,
+        "label": "New ITSM Platform",
+        "group": "Projects/Components",
+        "weight": 2,
+        "reference": [[1134, 1162]]
+      },
+      {
+        "id": 17,
+        "label": "Knowledge Management System",
+        "group": "Projects/Components",
+        "weight": 2,
+        "reference": [[1163, 1190]]
+      },
+      {
+        "id": 18,
+        "label": "Virtual Desktop Infrastructure",
+        "group": "Projects/Components",
+        "weight": 2,
+        "reference": [[1191, 1219]]
+      },
+      {
+        "id": 19,
+        "label": "Unified Communications Platform",
+        "group": "Projects/Components",
+        "weight": 2,
+        "reference": [[1220, 1246]]
+      },
+      {
+        "id": 20,
+        "label": "DevOps Tools (Azure DevOps)",
+        "group": "Projects/Components",
+        "weight": 2,
+        "reference": [[1354, 1376]]
+      },
+      {
+        "id": 21,
+        "label": "Test Automation Tools",
+        "group": "Projects/Components",
+        "weight": 2,
+        "reference": [[1377, 1397]]
+      },
+      {
+        "id": 22,
+        "label": "Self-Service Dev Environment Catalogs",
+        "group": "Projects/Components",
+        "weight": 2,
+        "reference": [[1398, 1437]]
+      },
+      {
+        "id": 23,
+        "label": "Cloud-Native App Architectures",
+        "group": "Projects/Components",
+        "weight": 2,
+        "reference": [[1438, 1480]]
+      }
+    ],
+    "links": [
+      {
+        "source": 1,
+        "target": 2,
+        "label": "Jennifer asked Raj to provide an overview of the ransomware incident",
+        "weight": 3,
+        "reference": [[33, 36]]
+      },
+      {
+        "source": 2,
+        "target": 7,
+        "label": "Raj provided details on the ransomware incident",
+        "weight": 4,
+        "reference": [[37, 98]]
+      },
+      {
+        "source": 1,
+        "target": 7,
+        "label": "Jennifer discussed the ransomware incident as an agenda item",
+        "weight": 5,
+        "reference": [[103, 154]]
+      },
+      {
+        "source": 7,
+        "target": 15,
+        "label": "The ransomware incident triggered an IT security audit",
+        "weight": 3,
+        "reference": [[154, 182]]
+      },
+      {
+        "source": 7,
+        "target": 12,
+        "label": "Jennifer requested a lessons learned report based on the ransomware incident",
+        "weight": 3,
+        "reference": [[265, 311]]
+      },
+      {
+        "source": 1,
+        "target": 3,
+        "label": "Jennifer asked Carlos to provide a status update on the cloud migration project",
+        "weight": 3,
+        "reference": [[382, 388]]
+      },
+      {
+        "source": 3,
+        "target": 8,
+        "label": "Carlos provided details on the cloud migration project status",
+        "weight": 4,
+        "reference": [[389, 522]]
+      },
+      {
+        "source": 1,
+        "target": 8,
+        "label": "Jennifer discussed the cloud migration project as an agenda item",
+        "weight": 4,
+        "reference": [[523, 529]]
+      },
+      {
+        "source": 8,
+        "target": 13,
+        "label": "Cloud cost optimization was identified as a follow-up action for the cloud migration project",
+        "weight": 3,
+        "reference": [[628, 676]]
+      },
+      {
+        "source": 8,
+        "target": 14,
+        "label": "Modernizing apps with Azure services was identified as a follow-up action for the cloud migration project",
+        "weight": 3,
+        "reference": [[677, 711]]
+      },
+      {
+        "source": 1,
+        "target": 4,
+        "label": "Jennifer asked Luis to provide an update on IT operations initiatives",
+        "weight": 3,
+        "reference": [[712, 716]]
+      },
+      {
+        "source": 4,
+        "target": 9,
+        "label": "Luis provided details on infrastructure automation and monitoring initiatives",
+        "weight": 4,
+        "reference": [[717, 861]]
+      },
+      {
+        "source": 1,
+        "target": 9,
+        "label": "Jennifer discussed IT operations initiatives as an agenda item",
+        "weight": 3,
+        "reference": [[862, 866]]
+      },
+      {
+        "source": 1,
+        "target": 5,
+        "label": "Jennifer asked Anita to discuss IT service management and user experience improvements",
+        "weight": 3,
+        "reference": [[986, 991]]
+      },
+      {
+        "source": 5,
+        "target": 10,
+        "label": "Anita provided details on ITSM, knowledge management, and end-user experience initiatives",
+        "weight": 4,
+        "reference": [[992, 1099]]
+      },
+      {
+        "source": 1,
+        "target": 10,
+        "label": "Jennifer discussed IT service management as an agenda item",
+        "weight": 3,
+        "reference": [[1100, 1105]]
+      },
+      {
+        "source": 10,
+        "target": 16,
+        "label": "The new ITSM platform was discussed as part of IT service management improvements",
+        "weight": 3,
+        "reference": [[1134, 1162]]
+      },
+      {
+        "source": 10,
+        "target": 17,
+        "label": "The knowledge management system was discussed as part of IT service management improvements",
+        "weight": 3,
+        "reference": [[1163, 1190]]
+      },
+      {
+        "source": 10,
+        "target": 18,
+        "label": "Virtual desktop infrastructure was discussed as part of end-user experience improvements",
+        "weight": 3,
+        "reference": [[1191, 1219]]
+      },
+      {
+        "source": 10,
+        "target": 19,
+        "label": "The unified communications platform was discussed as part of end-user experience improvements",
+        "weight": 3,
+        "reference": [[1220, 1246]]
+      },
+      {
+        "source": 1,
+        "target": 6,
+        "label": "Jennifer asked Omar to provide an update on application development and engineering productivity",
+        "weight": 3,
+        "reference": [[1314, 1318]]
+      },
+      {
+        "source": 6,
+        "target": 11,
+        "label": "Omar provided details on DevOps processes, tools, and cloud-native app architectures",
+        "weight": 4,
+        "reference": [[1319, 1480]]
+      },
+      {
+        "source": 1,
+        "target": 11,
+        "label": "Jennifer discussed application development as an agenda item",
+        "weight": 4,
+        "reference": [[1481, 1485]]
+      },
+      {
+        "source": 11,
+        "target": 20,
+        "label": "DevOps tools like Azure DevOps were discussed as part of application development initiatives",
+        "weight": 3,
+        "reference": [[1354, 1376]]
+      },
+      {
+        "source": 11,
+        "target": 21,
+        "label": "Test automation tools were discussed as part of application development initiatives",
+        "weight": 3,
+        "reference": [[1377, 1397]]
+      },
+      {
+        "source": 11,
+        "target": 22,
+        "label": "Self-service dev environment catalogs were discussed as part of application development initiatives",
+        "weight": 3,
+        "reference": [[1398, 1437]]
+      },
+      {
+        "source": 11,
+        "target": 23,
+        "label": "Cloud-native app architectures were discussed as part of application development initiatives",
+        "weight": 3,
+        "reference": [[1438, 1480]]
+      }
+    ]
+   }
