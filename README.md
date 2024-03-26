@@ -10,4 +10,4 @@ pip install -r requirments.txt
 source runner.sh
 ```
 Once APIs is being deployed use `http://127.0.0.1:8000/docs#/` test the endpoints. The FastAPI test page looks like picture below:
-[("https://github.com/aadityachapagain/Capstone_project/blob/feature/createDB/image.png")]
+![alt text](https://github.com/aadityachapagain/Capstone_project/blob/feature/createDB/image.png)
