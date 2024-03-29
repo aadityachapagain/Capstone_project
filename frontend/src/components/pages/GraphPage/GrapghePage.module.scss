@@ -1,0 +1,171 @@
+.root {
+    width: 100vw;
+    height: 100vh;
+    background-color: #f5f5f7;
+  }
+
+.header {
+    padding: 10px;
+    color: #313131;
+    font-size: 50px;
+    align-items: baseline;
+    position: relative;
+  }
+
+.Button {
+  float: right;
+
+  &:hover{
+    background:#e6e5e5;
+  }
+}
+
+input{
+  width: 100%;
+  height: 35px;
+  padding: auto;
+  font-size: 20px;
+  color: #babdc2;
+  border: 0;
+
+}
+
+input[type=text] {
+  transition: color 0.4s ease-in-out;
+}
+
+input[type=text]:focus {
+  color: #000000;
+}
+
+table{
+  padding-left: 8px;
+  margin-top: 10px;
+  border-collapse: collapse;
+  font-size: 20px;
+  width: 100%;
+  min-width: 600px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.th{
+  padding: 12px 15px 12px 15px;
+  text-align: center;
+  line-height: 35px;
+}
+
+.td{
+  text-align: left;
+  line-height: 35px;
+}
+
+.td:nth-child(odd){background-color: #f5f5f7;}
+
+.td:hover{
+  background-color: #e6e5e5;
+}
+
+.td text{
+  padding-left: 10px;
+}
+
+
+.graphContainer {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+
+}
+
+.graph {
+  width: 90%; 
+  height: 90%; 
+}
+
+.title {
+  padding: 20px;
+  color: #313131;
+  font-size: 20px;
+  align-items: baseline;
+  position: relative;
+}
+
+
+
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdownButton {
+  background-color: #f9f9f9;
+  color: #999;
+  padding: 20px; /* Adjust padding as needed */
+  border: none;
+  cursor: pointer;
+  margin-bottom: 10px; /* Add margin bottom for gap */
+  width: 200px; /* Adjust the width as needed */
+  border-radius: 10px; /* Make border-radius rectangular */
+  display: flex;
+  flex-direction: column-reverse; 
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add box-shadow for elevation */
+  position: relative; /* Ensure positioning context */
+  max-height: 500px; /* Set maximum height */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+
+
+.dropdownContent {
+  position: absolute;
+  bottom: calc(100% + 10px); /* Position above the button with a gap */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 10px; /* Make border-radius rectangular */
+  padding: 20px;
+  z-index: 1;
+  width: 200px; /* Adjust the width as needed */
+  height: 500px; /* Adjust the height as needed */
+}
+
+
+.card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-height: 100%; /* Ensure the card fills the available space */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.card p {
+  margin: 0;
+  font-size: 16px; /* Increase font size */
+}
+
+.closeButton {
+  position: absolute; /* Position the button absolutely */
+  top: -34px;/* Adjust top position as needed */
+  right: -10px; /* Adjust right position as needed */
+  background-color: transparent;
+  border: none;
+  font-size: 16px; /* Decrease button font size */
+  cursor: pointer;
+  color: #999;
+  height: 20px; /* Decrease button height */
+}
+
+.boxcontainer {
+  position: fixed;
+  bottom: 20px; /* Adjust bottom spacing as needed */
+  right: 20px; /* Adjust right spacing as needed */
+
+  border-radius: 5px;
+  padding: 10px;
+  /* Additional styles for your box content */
+}
+
