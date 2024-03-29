@@ -1,7 +1,8 @@
 import React, { useRef } from "react";
 import styles from "./card.module.scss";
 import cx from "classnames";
-
+import makeAPICall from "../../../../../api/apiClient";
+import { useNavigate } from "react-router-dom";
 const Card = ({
   title = "",
   content = "",
@@ -10,7 +11,7 @@ const Card = ({
   className,
 }) => {
   const fileInputRef = useRef(null);
-
+  const navigate = useNavigate();
   const handleImport = () => {
     console.log("handle");
     if (title === "Audio") {
@@ -21,11 +22,23 @@ const Card = ({
     fileInputRef.current.click();
   };
 
-  const handleFileSelect = (event) => {
+  const handleFileSelect = async (event) => {
     const file = event.target.files[0];
     if (file) {
       //Integrate the upload api here
       console.log("Selected file:", file);
+      try {
+        const response = await makeAPICall({
+          method: "POST",
+          endpoint: "/api/user/upload",
+          payload: { fileb: file },
+          contentType: "multipart/form-data",
+        });
+        navigate("/archive");
+        console.log("Response", response);
+      } catch (e) {
+        //error message
+      }
     }
   };
   return (
