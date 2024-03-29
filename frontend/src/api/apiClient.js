@@ -2,7 +2,7 @@ import axios from "axios";
 
 const apiClient = axios.create({
   //TODO: change to the hosted backend api domain
-  baseURL: "http://localhost:2000",
+  baseURL: "http://127.0.0.1:8000",
 });
 
 const makeAPICall = async ({
