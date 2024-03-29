@@ -11,7 +11,7 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from loguru import logger
 from backend.azure_llm import azureLLM
-
+from fastapi.middleware.cors import CORSMiddleware
 from database.manage_db import compassDB
 
 from dotenv import load_dotenv
@@ -30,6 +30,20 @@ db_obj = compassDB(username=username, password=password)
 # InitializeLLM
 llm_obj = azureLLM(api_key=os.getenv("azurellm_key"))
 
+origins = [
+    "http://localhost",
+    "http://localhost:3000",
+    "http://localhost:3000/"
+]
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "DELETE"],
+    allow_headers=["Authorization", "Content-Type"],
+)
 
 @app.get("/test")
 def read_root():
