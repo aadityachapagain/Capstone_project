@@ -1,0 +1,41 @@
+.card {
+  box-shadow: 0px 4px 4px 0px #00000040,
+    0px -3px 1.600000023841858px 0px #00000040 inset,
+    0px 1px 3px 0px #ffffff inset;
+  width: 200px;
+  height: 200px;
+  border-radius: 13px;
+  padding: 25px;
+  font-family: Source Serif Pro;
+  margin-bottom: 20px;
+  cursor: pointer;
+  background-color: white;
+  position: relative;
+  &_title {
+    font-size: 30px;
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  &_text {
+    color: #717479;
+    font-weight: 400;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  &_ctaicon {
+    position: absolute;
+    right: -30px;
+    width: 60px;
+    height: 75px;
+    top: 40%;
+    &.ctaleft {
+      left: -35px;
+    }
+    &.ctatop {
+      top: -20px;
+      left: -30px;
+    }
+  }
+}

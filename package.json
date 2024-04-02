@@ -1,5 +1,5 @@
 {
-  "name": "compassclone",
+  "name": "pnpm",
   "scripts": {
     "build": "npx projen build",
     "bundle": "npx projen bundle",
@@ -7,6 +7,7 @@
     "compile": "npx projen compile",
     "default": "npx projen default",
     "deploy": "npx projen deploy",
+    "deploy-all-dev": "npx projen deploy-all-dev",
     "destroy": "npx projen destroy",
     "diff": "npx projen diff",
     "eject": "npx projen eject",
@@ -28,7 +29,7 @@
     "@types/node": "^18",
     "@typescript-eslint/eslint-plugin": "^6",
     "@typescript-eslint/parser": "^6",
-    "aws-cdk": "^2.1.0",
+    "aws-cdk": "^2.9.0",
     "esbuild": "^0.20.2",
     "eslint": "^8",
     "eslint-import-resolver-typescript": "^3.6.1",
@@ -41,8 +42,12 @@
     "typescript": "^5.4.3"
   },
   "dependencies": {
-    "aws-cdk-lib": "^2.1.0",
-    "constructs": "^10.0.5"
+    "@aws-cdk/aws-apigatewayv2-alpha": "^2.114.1-alpha.0",
+    "@aws-cdk/aws-apigatewayv2-integrations-alpha": "^2.114.1-alpha.0",
+    "@aws-cdk/aws-lambda-python-alpha": "^2.135.0-alpha.0",
+    "aws-cdk-lib": "^2.9.0",
+    "constructs": "^10.0.5",
+    "dotenv": "^16.4.5"
   },
   "license": "Apache-2.0",
   "version": "0.0.0",

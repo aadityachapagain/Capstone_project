@@ -1,23 +1,35 @@
-import { App, Stack, StackProps } from 'aws-cdk-lib';
-import { Construct } from 'constructs';
+import { App } from 'aws-cdk-lib';
+import { DeploymentVars } from './lib/build-config';
+import { ApiStack } from './stacks/api';
+import dotenv from 'dotenv';
 
-export class MyStack extends Stack {
-  constructor(scope: Construct, id: string, props: StackProps = {}) {
-    super(scope, id, props);
-
-    // define resources here...
-  }
-}
-
-// for development, use account/region from cdk cli
-const devEnv = {
-  account: process.env.CDK_DEFAULT_ACCOUNT,
-  region: process.env.CDK_DEFAULT_REGION,
-};
+dotenv.config();
 
 const app = new App();
 
-new MyStack(app, 'compassclone-dev', { env: devEnv });
-// new MyStack(app, 'compassclone-prod', { env: prodEnv });
+const DB_USERNAME = process.env.db_username || '';
+const DB_PASSWORD = process.env.db_password || '';
+const LLM_APIKEY = process.env.azurellm_key || '';
+
+const environment = app.node.tryGetContext('environment') || 'dev';
+const application = app.node.tryGetContext('application') || 'commpass';
+
+const deploymentVars: DeploymentVars = {
+  Application: application,
+  Environment: environment,
+  dbusername: DB_USERNAME,
+  dbpassword: DB_PASSWORD,
+  llmapikey: LLM_APIKEY,
+};
+
+const deploymentEnv = {
+  account: process.env.CDK_DEFAULT_ACCOUNT || '123456789012',
+  region: process.env.CDK_DEFAULT_REGION || 'ap-southeast-2',
+};
+
+new ApiStack(app, 'CommpassApiStack', {
+  env: deploymentEnv,
+  stackName: `${application}-${environment}-api-stack`,
+}, deploymentVars);
 
 app.synth();

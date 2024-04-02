@@ -1,0 +1,65 @@
+.root {
+  width: 100vw;
+  height: 100vh;
+  background-color: #f5f5f7;
+}
+.header {
+  padding: 10px;
+  color: #313131;
+}
+.customLink {
+  text-decoration: none;
+  color: inherit;
+}
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  &_head {
+    height: 100px;
+    margin-bottom: 30px;
+  }
+  &_operation {
+    width: 530px;
+  }
+  &_icon {
+    width: 60px;
+    height: 80px;
+    margin: auto;
+  }
+  &_title {
+    font-size: 30px;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  &_firstrow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  &_import {
+    width: 47% !important;
+    height: 300px !important;
+    position: relative;
+  }
+  &_secondrow {
+    position: relative;
+  }
+  &_multiblock {
+    position: absolute;
+    top: 10%;
+    right: 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    height: 280px;
+  }
+  &_multiblockitem {
+    height: 120px;
+  }
+}
+
