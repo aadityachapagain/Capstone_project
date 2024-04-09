@@ -2,7 +2,7 @@ import axios from "axios";
 
 const apiClient = axios.create({
   //TODO: change to the hosted backend api domain
-  baseURL: REACT_APP_COMMPASS_URL || "http://127.0.0.1:8000",
+  baseURL: process.env.REACT_APP_COMMPASS_URL || "http://127.0.0.1:8000",
 });
 
 const makeAPICall = async ({
