@@ -6,3 +6,5 @@ uvicorn==0.28.0
 python-multipart==0.0.9
 langchain==0.1.13
 langchain-openai==0.1.1
+transformers==4.39.2
+anthropic==0.25.0
