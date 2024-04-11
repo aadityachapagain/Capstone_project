@@ -42,6 +42,7 @@ export class ApiStack extends Stack {
 
     const corsOrigin = [
       'http://localhost:3000',
+      'https://commpass-graph-visual.vercel.app',
     ];
 
     const httpAPI = new HttpApi(this, apiName, {
