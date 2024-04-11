@@ -129,7 +129,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/archive" element={<ArchivePage />} />
-        <Route path="/graph" element={<GraphPage />} />
+        <Route path="/archive/:route_id" element={<GraphPage />} />
       </Routes>
     </BrowserRouter>
   );

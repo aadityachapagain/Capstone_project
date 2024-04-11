@@ -57,19 +57,45 @@ const HomePage = () => {
             Archive
           </Link>
         </Button>
-        <div className={styles.content}>
-          <div className={styles.content_head}>
-            <div className={styles.content_icon}>
-              <TitleIcon />
-            </div>
-            <div className={styles.content_title}>COMMPASS</div>
+      </div>
+      <div className={styles.content}>
+        <div className={styles.content_head}>
+          <div className={styles.content_icon}>
+            <TitleIcon />
           </div>
-          <div className={styles.content_operation}>
-            <div className={styles.content_firstrow}>
-              {CardFirstRow.map((item) => {
+          <div className={styles.content_title}>COMMPASS</div>
+        </div>
+        <div className={styles.content_operation}>
+          <div className={styles.content_firstrow}>
+            {CardFirstRow.map((item) => {
+              return (
+                <Card
+                  key={item.id}
+                  title={item.title}
+                  content={item.content}
+                  iconPosition={item.iconPosition}
+                  icon={item.icon}
+                />
+              );
+            })}
+          </div>
+          <div className={styles.content_secondrow}>
+            <Card
+              key={crypto.randomUUID()}
+              title={"Import"}
+              className={styles.content_import}
+              content={
+                "By importing previous meeting files, whether the transcript or audio recordings, map generation is possible."
+              }
+              iconPosition={"top"}
+              icon={<ImportIcon />}
+            />
+            <div className={styles.content_multiblock}>
+              {MultiCardData?.map((item) => {
                 return (
                   <Card
                     key={item.id}
+                    className={styles.content_multiblockitem}
                     title={item.title}
                     content={item.content}
                     iconPosition={item.iconPosition}
@@ -77,32 +103,6 @@ const HomePage = () => {
                   />
                 );
               })}
-            </div>
-            <div className={styles.content_secondrow}>
-              <Card
-                key={crypto.randomUUID()}
-                title={"Import"}
-                className={styles.content_import}
-                content={
-                  "By importing previous meeting files, whether the transcript or audio recordings, map generation is possible."
-                }
-                iconPosition={"top"}
-                icon={<ImportIcon />}
-              />
-              <div className={styles.content_multiblock}>
-                {MultiCardData?.map((item) => {
-                  return (
-                    <Card
-                      key={item.id}
-                      className={styles.content_multiblockitem}
-                      title={item.title}
-                      content={item.content}
-                      iconPosition={item.iconPosition}
-                      icon={item.icon}
-                    />
-                  );
-                })}
-              </div>
             </div>
           </div>
         </div>
