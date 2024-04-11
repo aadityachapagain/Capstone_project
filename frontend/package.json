@@ -2,7 +2,6 @@
   "name": "graphtest",
   "version": "0.1.0",
   "private": true,
-<<<<<<< HEAD
   "proxy": "http://127.0.0.1:8000",
   "dependencies": {
     "@table-library/react-table-library": "^4.1.7",
@@ -13,24 +12,12 @@
     "classnames": "^2.5.1",
     "d3": "^7.9.0",
     "dotenv": "^16.4.5",
-=======
-  "dependencies": {
-    "@table-library/react-table-library": "^4.1.7",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "d3": "^7.8.5",
->>>>>>> 0ea3ff03 (feat: init setup)
     "node-sass": "^9.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-force-graph-2d": "^1.25.1",
-<<<<<<< HEAD
     "react-router-dom": "^6.22.2",
     "react-scripts": "^5.0.1",
-=======
-    "react-scripts": "5.0.1",
->>>>>>> 0ea3ff03 (feat: init setup)
     "web-vitals": "^2.1.4"
   },
   "scripts": {

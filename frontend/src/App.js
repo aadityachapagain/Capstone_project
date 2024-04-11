@@ -4,13 +4,10 @@ import "./App.css"; // Importing the CSS file for styling.
 import { useState } from "react"; // Importing the useState hook from React.
 import Graph from "./components/Graph/Graph"; // Importing the Graph component.
 import ForceGraph from "./components/ForceGraph/ForceGraph"; // Importing the ForceGraph component.
-<<<<<<< HEAD
 import { HomePage } from "./components/pages/HomePage";
 import { ArchivePage } from "./components/pages/ArchivePage";
 import { GraphPage } from "./components/pages/GraphPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-=======
->>>>>>> 0ea3ff03 (feat: init setup)
 function App() {
   // Define the data representing nodes and links for the graph visualization.
   const data = {
@@ -106,7 +103,6 @@ function App() {
   // to manage the selected graph visualization style.
   const [graphStyle, setGraphStyle] = useState("");
 
-<<<<<<< HEAD
   // return (
   //   // Render the main application container.
   //   <div className="App">
@@ -136,28 +132,6 @@ function App() {
         <Route path="/archive/:route_id" element={<GraphPage />} />
       </Routes>
     </BrowserRouter>
-=======
-  return (
-    // Render the main application container.
-    <div className="App">
-      <h1>Mind Map</h1>
-      {/* Render buttons to switch between graph visualization styles. */}
-      <button
-        onClick={() => setGraphStyle("force")}
-        style={{ marginRight: "10px" }}
-      >
-        React Force Graph
-      </button>
-      <button onClick={() => setGraphStyle("d3")}>D3 Force graph</button>
-      {/* Conditionally render either the 'Graph' or 'ForceGraph' component
-           based on the selected 'graphStyle' state. */}
-      {graphStyle === "d3" ? (
-        <Graph data={data} />
-      ) : graphStyle === "force" ? (
-        <ForceGraph data={data} />
-      ) : null}
-    </div>
->>>>>>> 0ea3ff03 (feat: init setup)
   );
 }
 
