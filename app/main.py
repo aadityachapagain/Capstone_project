@@ -16,6 +16,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from database.manage_db import compassDB
 
 from dotenv import load_dotenv
+from mangum import Mangum
 
 
 # Load environment variables from .env file
@@ -139,3 +140,5 @@ async def get_item(transcript_id: str):
     )
     json_data = jsonable_encoder(json_response)
     return JSONResponse(content=json_data)
+
+handler = Mangum(app)
