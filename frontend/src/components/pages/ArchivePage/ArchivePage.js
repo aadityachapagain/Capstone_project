@@ -13,6 +13,7 @@ import {
 } from "@table-library/react-table-library/table";
 import makeAPICall from "../../..//api/apiClient.js";
 import { useNavigate } from "react-router-dom";
+import { BarLoader } from "react-spinners";
 
 const ArchivePage = () => {
   const uploadNew = () => {
@@ -86,11 +87,15 @@ const ArchivePage = () => {
           name="search"
           onChange={handleSearch}
           placeholder="Search by Files Name"
+          className={styles.input}
           //onFocus={()=>setSearch.value=" "}
         />
       </label>
       {loading ? (
-        <p>Loading...</p>
+        <div className={styles.loader}>
+          <p>Loading...</p>
+          <BarLoader height={8} width={500} color={"#123abc"} loading={true} />
+        </div>
       ) : (
         <Table data={filteredData}>
           {(tablelist) => (

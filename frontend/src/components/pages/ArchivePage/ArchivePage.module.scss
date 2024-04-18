@@ -1,11 +1,11 @@
 .root {
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   background-color: #f5f5f7;
 }
 
 .header {
-  padding: 20px;
+  padding: 10px;
   color: #313131;
   font-size: 50px;
   align-items: baseline;
@@ -19,14 +19,16 @@
     background: #e6e5e5;
   }
 }
-
-input {
-  width: 100%;
+label {
+  width: 50%;
+}
+.input {
+  width: 98.5%;
   height: 35px;
-  padding: auto;
   font-size: 20px;
   color: #babdc2;
   border: 0;
+  padding: 0px 10px;
 }
 
 input[type="text"] {
@@ -38,7 +40,7 @@ input[type="text"]:focus {
 }
 
 table {
-  padding-left: 8px;
+  padding-left: 10px;
   margin-top: 10px;
   border-collapse: collapse;
   font-size: 20px;
@@ -49,7 +51,7 @@ table {
 
 .th {
   padding: 12px 15px 12px 15px;
-  text-align: center;
+  text-align: left;
   line-height: 35px;
 }
 
@@ -69,4 +71,19 @@ table {
 
 .td text {
   padding-left: 10px;
+}
+.loader {
+  > p {
+    color: #313131;
+    font-size: 20px;
+    text-align: center;
+    font-weight: 600;
+  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  > span {
+    border-radius: 8px;
+  }
 }
