@@ -8,3 +8,5 @@ langchain==0.1.13
 langchain-openai==0.1.1
 transformers==4.39.2
 anthropic==0.25.0
+SpeechRecognition==3.10.3
+pydub==0.25.1
