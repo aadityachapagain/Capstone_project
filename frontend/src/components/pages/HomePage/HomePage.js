@@ -75,6 +75,7 @@ const HomePage = () => {
                   content={item.content}
                   iconPosition={item.iconPosition}
                   icon={item.icon}
+                  className={styles.firstrow}
                 />
               );
             })}

@@ -13,6 +13,7 @@ import {
 } from "@table-library/react-table-library/table";
 import makeAPICall from "../../..//api/apiClient.js";
 import { useNavigate } from "react-router-dom";
+import { BarLoader } from "react-spinners";
 
 const ArchivePage = () => {
   const uploadNew = () => {
@@ -62,7 +63,37 @@ const ArchivePage = () => {
     navigate(`/archive/${routeId}`); // Navigate to /archive/:route_id
   };
   if (data?.nodes?.length === 0) {
-    return null;
+    return (
+      <div className={styles.root}>
+        <div className={styles.header}>
+          <Logo />
+          <span>Archive</span>
+          <Button
+            className={styles.Button}
+            variant="outlined"
+            size="medium"
+            onClick={uploadNew}
+          >
+            New
+          </Button>
+        </div>
+        <label htmlFor="search">
+          <input
+            id="search"
+            type="text"
+            name="search"
+            onChange={handleSearch}
+            placeholder="Search by Files Name"
+            className={styles.input}
+            //onFocus={()=>setSearch.value=" "}
+          />
+        </label>
+        <div className={styles.loader}>
+          <p>Loading...</p>
+          <BarLoader height={8} width={500} color={"#123abc"} loading={true} />
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -86,11 +117,15 @@ const ArchivePage = () => {
           name="search"
           onChange={handleSearch}
           placeholder="Search by Files Name"
+          className={styles.input}
           //onFocus={()=>setSearch.value=" "}
         />
       </label>
       {loading ? (
-        <p>Loading...</p>
+        <div className={styles.loader}>
+          <p>Loading...</p>
+          <BarLoader height={8} width={500} color={"#123abc"} loading={true} />
+        </div>
       ) : (
         <Table data={filteredData}>
           {(tablelist) => (

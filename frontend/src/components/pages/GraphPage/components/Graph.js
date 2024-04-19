@@ -1,10 +1,13 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
+import Modal from "./Modal";
+import styles from "../GrapghePage.module.scss";
 
 const Graph = ({ data }) => {
   const svgRef = useRef(null);
+  const [modalText, setModalText] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  console.log("dasdasdasdas", data);
   useEffect(() => {
     if (!data) return; // Return if data is not available
 
@@ -72,6 +75,16 @@ const Graph = ({ data }) => {
       .append("path")
       .attr("d", "M0,-5L10,0L0,5")
       .attr("fill", "#999");
+    const initialScale = 0.6; // Initial scale for zooming out
+
+    const zoom = d3.zoom().scaleExtent([0.1, 80]).on("zoom", zoomed);
+    svg.call(zoom);
+    // Trigger the zoom event programmatically to zoom out
+    svg.call(zoom.transform, d3.zoomIdentity.scale(initialScale));
+
+    function zoomed(event) {
+      svg.selectAll("g.nodes, g.links").attr("transform", event.transform);
+    }
 
     const legend = svg
       .append("g")
@@ -119,7 +132,8 @@ const Graph = ({ data }) => {
       .attr("text-anchor", "middle")
       .attr("fill", "#555")
       .style("font-size", linkLabelSize)
-      .text((d) => d.label);
+      .text((d) => d.label)
+      .on("click", (event, d) => handleLinkTextClick(event, d)); // Pass event and data to handleLinkTextClick
 
     const nodeGroup = svg.append("g").attr("class", "nodes");
     const node = nodeGroup
@@ -167,16 +181,6 @@ const Graph = ({ data }) => {
         );
       });
 
-    const initialScale = 0.6; // Initial scale for zooming out
-
-    const zoom = d3.zoom().scaleExtent([0.1, 80]).on("zoom", zoomed);
-    svg.call(zoom);
-    // Trigger the zoom event programmatically to zoom out
-    svg.call(zoom.transform, d3.zoomIdentity.scale(initialScale));
-
-    function zoomed(event) {
-      svg.selectAll("g.nodes, g.links").attr("transform", event.transform);
-    }
     function adjustTextSize(textElement, maxWidth, maxHeight) {
       let div = d3.select(textElement);
       let fontSize = 10;
@@ -304,7 +308,67 @@ const Graph = ({ data }) => {
     }
   }, []);
 
-  return <svg ref={svgRef}></svg>;
+  const handleDownloadSVG = () => {
+    const svgElement = svgRef.current;
+    const svgCopy = svgElement.cloneNode(true); // Create a deep copy of the SVG element
+    const serializer = new XMLSerializer();
+
+    // Remove zoom transformation
+    const zoomTransform = svgCopy.createSVGTransform();
+    zoomTransform.setTranslate(0, 0);
+    svgCopy.transform.baseVal.initialize(zoomTransform);
+
+    const svgString = serializer.serializeToString(svgCopy);
+
+    const svgBlob = new Blob([svgString], { type: "image/svg+xml" });
+    const url = URL.createObjectURL(svgBlob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "graph.svg";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  const handleDownloadJSON = () => {
+    const jsonData = JSON.stringify(data, null, 2);
+    const blob = new Blob([jsonData], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "graph.json";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  function handleLinkTextClick(event, d) {
+    // Display popup/modal with the text
+    setModalText(d.label);
+    setIsModalOpen(true);
+  }
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+  return (
+    <div>
+      <div className={styles.downloadButtonsContainer}>
+        <button className={styles.downloadButton} onClick={handleDownloadSVG}>
+          Download SVG
+        </button>
+        <button className={styles.downloadButton} onClick={handleDownloadJSON}>
+          Download JSON
+        </button>
+      </div>
+      <svg ref={svgRef}></svg>
+      <Modal isOpen={isModalOpen} text={modalText} onClose={handleCloseModal} />
+    </div>
+  );
 };
 
 export default Graph;
