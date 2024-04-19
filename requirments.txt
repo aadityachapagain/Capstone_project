@@ -4,13 +4,10 @@ python-dotenv==1.0.0
 fastapi==0.110.0
 uvicorn==0.28.0
 python-multipart==0.0.9
-<<<<<<< HEAD
 langchain==0.1.13
 langchain-openai==0.1.1
 transformers==4.39.2
 anthropic==0.25.0
 SpeechRecognition==3.10.3
 pydub==0.25.1
-=======
-anthropic==0.20.0
->>>>>>> 3fadd37dfd182881a9ae88d6dfcf92651c149fcd
+joblib==1.4.0
