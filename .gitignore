@@ -54,3 +54,5 @@ junit.xml
 .parcel-cache/
 !/.projenrc.ts
 *.pyc
+*.mp3
+*.wav
