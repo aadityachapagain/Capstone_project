@@ -11,3 +11,4 @@ anthropic==0.25.0
 SpeechRecognition==3.10.3
 pydub==0.25.1
 joblib==1.4.0
+deepmultilingualpunctuation==1.0.1
