@@ -13,7 +13,6 @@ from backend.ml.ml_operation import aiModel
 from fastapi.middleware.cors import CORSMiddleware
 from backend.database.manage_db import compassDB
 from backend.audio.process_audio import processAudio
-from backend.extraction import uploadFile
 
 from dotenv import load_dotenv
 
