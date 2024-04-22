@@ -39,3 +39,27 @@
     }
   }
 }
+.cSoon {
+  position: absolute;
+  width: 110%;
+  height: 20px;
+  border-radius: 14px;
+  bottom: 20px;
+  background-color: #fbfbfd;
+  padding: 8px 5px;
+  color: #b94b24;
+  font-size: 24px;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-style: italic;
+  left: -15px;
+  box-shadow: 0px 4px 4px 0px #00000040,
+    0px -3px 1.600000023841858px 0px #00000040 inset,
+    0px 1px 3px 0px #ffffff inset;
+}
+.csCard {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
