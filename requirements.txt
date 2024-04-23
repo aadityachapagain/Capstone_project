@@ -8,9 +8,6 @@ langchain==0.1.13
 langchain-openai==0.1.1
 transformers==4.39.2
 anthropic==0.25.0
-mangum
-transformers[torch]
-python-multipart==0.0.9
 SpeechRecognition==3.10.3
 pydub==0.25.1
 joblib==1.4.0
