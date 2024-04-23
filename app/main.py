@@ -1,7 +1,6 @@
 # from typing import Annotated
 import os
-import uuid
-import json
+import shutil
 import urllib.parse
 import gridfs
 import datetime
@@ -9,14 +8,13 @@ from bson import ObjectId
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
-from pydantic import BaseModel
 from loguru import logger
-from backend.ml_operation import aiModel
+from backend.ml.ml_operation import aiModel
 from fastapi.middleware.cors import CORSMiddleware
-from database.manage_db import compassDB
+from backend.database.manage_db import compassDB
+from backend.audio.process_audio import processAudio
 
 from dotenv import load_dotenv
-from mangum import Mangum
 
 
 # Load environment variables from .env file
@@ -31,7 +29,10 @@ app = FastAPI()
 db_obj = compassDB(username=username, password=password)
 # InitializeLLM
 model_obj = aiModel()
-
+# Initialize Audio
+audio_obj = processAudio()
+# initialize file storage
+# upload_txtObj = uploadFile(db=db_obj.db_client.compass_filedb)
 origins = ["http://localhost", "http://localhost:3000", "http://localhost:3000/"]
 
 # Add CORS middleware
@@ -51,10 +52,28 @@ def read_root():
 
 @app.post("/api/user/upload")
 async def read_item(fileb: UploadFile = File(...)):
-    # test wether filename is txt or not
-    if fileb.filename.split(".")[-1] != "txt":
+    #test wether filename is txt or not
+    if fileb.filename.split(".")[-1] == "mp3":
+        audio_content = fileb.file.read()
+        wav_audio = audio_obj.generate_wav(data=audio_content, filepath=fileb.filename)
+        audio_text = audio_obj.generate_text(wav_file=wav_audio)
+        processed_text = ".\n".join(audio_text.split("."))
+        byte_content = processed_text.encode()
+        audiodb = db_obj.db_client.compass_audiodb
+        grid_as = gridfs.GridFS(audiodb)
+        audio_token = grid_as.put(audio_content, filename=fileb.filename)
+        source = "audio"
+        shutil.rmtree("/tmp/audio")
+    elif fileb.filename.split(".")[-1] == "txt":
+        byte_content = fileb.file.read()
+        audio_token = None
+        source = "transcription"
+    elif fileb.filename.split("-1")[-1]=="json":
+        byte_content = b""
+        source = "json"
+        audio_token = None
+    else:
         return HTTPException(status_code=405, detail="Item not found")
-    byte_content = fileb.file.read()
     # log timstamp
     timestamp = datetime.datetime.now()
     # Load File into GridFS System
@@ -62,9 +81,9 @@ async def read_item(fileb: UploadFile = File(...)):
     filedb = db_obj.db_client.compass_filedb
     grid_fs = gridfs.GridFS(filedb)
     db_token = grid_fs.put(byte_content, filename=fileb.filename)
-    # Add person involved in the meeting
+    # # Add person involved in the meeting
     attendees = model_obj.ner_model.extract_names(byte_content.decode())
-    # Extract Summary from the transcribe
+    # # Extract Summary from the transcribe
     summary = model_obj.summerizer_model.extract_summary(byte_content.decode())
     # load filename and db_token in Database compass_db on collection called file_collection
     db_obj.add_document(
@@ -74,11 +93,18 @@ async def read_item(fileb: UploadFile = File(...)):
             "id_": str(db_token),
             "filename": fileb.filename,
             "attendees": ",".join(attendees),
-            "source": "transcription",
+            "source": source,
             "summary": summary,
             "datetime": str(timestamp),
             "status": "In progress",
+            "audio_token": str(audio_token),
         },
+    )
+    if fileb.filename.split("-1")[-1]=="json":
+        db_obj.add_document(
+        database="compass_db",
+        collection="mindmap",
+        json_data={"transcript_id": db_token, "data": fileb.file.read()},
     )
     return str(db_token)
 
@@ -141,4 +167,35 @@ async def get_item(transcript_id: str):
     json_data = jsonable_encoder(json_response)
     return JSONResponse(content=json_data)
 
-handler = Mangum(app)
+
+@app.get("/api/user/play")
+async def play_audio(db_token: str):
+    # test wether filename is txt or not
+    resp = db_obj.query_document(
+        database="compass_db", collection="file_collection", query={"id_": db_token}
+    )
+    audio_token = resp.get("audio_token", None)
+    if not os.path.isdir("/tmp/audio"):
+        os.mkdir("/tmp/audio")
+    if audio_token:
+        audiodb = db_obj.db_client.compass_audiodb
+        grid_as = gridfs.GridFS(audiodb)
+        data_obj = grid_as.get(ObjectId(audio_token))
+        byte_audio = data_obj.read()
+        with open("/tmp/audio/temp_audio.wav", "wb+") as f:
+            f.write(byte_audio)
+        return "Completed!!!"
+    else:
+        return HTTPException(status_code=405, detail="Item not found")
+    
+# @app.get("/api/get/mindmap")
+# async def get_item(db_token: str):
+#     resp = db_obj.query_document(
+#         database="compass_db", collection="file_collection", query={"id_": db_token}
+#     )
+#     transcript_id = resp.get("audio_token", None)
+#     filedb = db_obj.db_client.compass_filedb
+#     grid_as = gridfs.GridFS(filedb)
+#     data_obj = grid_as.get(ObjectId(transcript_id))
+#     byte_audio = data_obj.read()
+
