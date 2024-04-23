@@ -28,7 +28,7 @@ class gptModel:
             openai_api_key=os.getenv("azurellm_key"),
             temperature=kwargs.get("temperature", 0),
         )
-        self.prompt_path = kwargs.get("prompt_path", "./app/backend/ml/prompt.txt")
+        self.prompt_path = kwargs.get("prompt_path", "./backend/ml/prompt.txt")
 
     def extract_response(self, transcribe_data):
         with open(self.prompt_path, "r") as prompt_file:
@@ -63,7 +63,7 @@ class NameEntityExtraction:
 class claudeSummarization:
     def __init__(self, **kwargs):
         self.model = anthropic.Anthropic(api_key=os.getenv("claude_token"))
-        self.prompt_path = kwargs.get("prompt_path", "./app/backend/ml/summerizer_prompt.txt")
+        self.prompt_path = kwargs.get("prompt_path", "./backend/ml/summerizer_prompt.txt")
 
     def extract_summary(self, transcript):
         with open(self.prompt_path, "r") as prompt_file:

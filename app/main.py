@@ -9,10 +9,11 @@ from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 from loguru import logger
-from app.backend.ml.ml_operation import aiModel
+from backend.ml.ml_operation import aiModel
 from fastapi.middleware.cors import CORSMiddleware
-from app.backend.database.manage_db import compassDB
-from app.backend.audio.process_audio import processAudio
+from backend.database.manage_db import compassDB
+from backend.audio.process_audio import processAudio
+from mangum import Mangum
 
 from dotenv import load_dotenv
 
@@ -199,3 +200,5 @@ async def play_audio(db_token: str):
 #     data_obj = grid_as.get(ObjectId(transcript_id))
 #     byte_audio = data_obj.read()
 
+
+handler = Mangum(app)
