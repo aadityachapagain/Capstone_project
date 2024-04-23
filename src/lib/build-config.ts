@@ -4,4 +4,5 @@ export interface DeploymentVars {
   readonly dbusername: string;
   readonly dbpassword: string;
   readonly llmapikey: string;
+  readonly claudeToken: string;
 }

@@ -10,6 +10,7 @@ const app = new App();
 const DB_USERNAME = process.env.db_username || '';
 const DB_PASSWORD = process.env.db_password || '';
 const LLM_APIKEY = process.env.azurellm_key || '';
+const CALUDE_TOKEN = process.env.claude_token || '';
 
 const environment = app.node.tryGetContext('environment') || 'dev';
 const application = app.node.tryGetContext('application') || 'commpass';
@@ -20,6 +21,7 @@ const deploymentVars: DeploymentVars = {
   dbusername: DB_USERNAME,
   dbpassword: DB_PASSWORD,
   llmapikey: LLM_APIKEY,
+  claudeToken: CALUDE_TOKEN,
 };
 
 const deploymentEnv = {
