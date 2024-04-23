@@ -62,3 +62,9 @@ class compassDB:
         mongo_col = mongo_db[kwargs.get("collection")]
         if kwargs.get("query", {}) and kwargs.get("updated_value", {}):
             mongo_col.update_one(kwargs.get("query"), kwargs.get("updated_value"))
+    
+    def delete_document(self, **kwargs):
+        mongo_db = self.db_client[kwargs.get("database")]
+        mongo_col = mongo_db[kwargs.get("collection")]
+        mongo_col.delete_one(kwargs.get("query"))
+
