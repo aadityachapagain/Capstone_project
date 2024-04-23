@@ -9,10 +9,10 @@ from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 from loguru import logger
-from backend.ml.ml_operation import aiModel
+from app.backend.ml.ml_operation import aiModel
 from fastapi.middleware.cors import CORSMiddleware
-from backend.database.manage_db import compassDB
-from backend.audio.process_audio import processAudio
+from app.backend.database.manage_db import compassDB
+from app.backend.audio.process_audio import processAudio
 
 from dotenv import load_dotenv
 
