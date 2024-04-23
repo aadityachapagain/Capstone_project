@@ -97,6 +97,7 @@ export class ApiStack extends Stack {
         db_username: deploymentVars.dbusername,
         db_password: deploymentVars.dbpassword,
         azurellm_key: deploymentVars.llmapikey,
+        claude_token: deploymentVars.claudeToken,
       },
       role: apigatewayRole,
       timeout: Duration.minutes(10),

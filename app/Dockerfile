@@ -8,7 +8,6 @@ COPY requirements.txt ./
 RUN pip3 install --no-cache-dir -r requirements.txt
 
 ADD backend ./backend
-ADD database ./database
 COPY main.py ./
 COPY transcript.txt ./
 COPY transcript2.txt ./
