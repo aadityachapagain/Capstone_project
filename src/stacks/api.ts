@@ -7,9 +7,7 @@ import {
 import {
   HttpLambdaIntegration,
 } from '@aws-cdk/aws-apigatewayv2-integrations-alpha';
-import {
-  PythonFunction,
-} from '@aws-cdk/aws-lambda-python-alpha';
+
 import {
   App,
   Stack,
@@ -18,7 +16,9 @@ import {
   aws_lambda as lambda,
   Duration,
   CfnOutput,
+  Size,
 } from 'aws-cdk-lib';
+import { Platform } from 'aws-cdk-lib/aws-ecr-assets';
 import { ServicePrincipal } from 'aws-cdk-lib/aws-iam';
 import { DeploymentVars } from '../lib/build-config';
 
@@ -37,7 +37,7 @@ export class ApiStack extends Stack {
     const baseName = `${appname}-${environment}`;
 
     const apiName = `${baseName}-api`;
-    const lambdaName = `${baseName}-lambda`;
+    const lambdaName = `${baseName}-back`;
     const lambdaRoleName = `${baseName}-lambda-role`;
 
     const corsOrigin = [
@@ -87,18 +87,21 @@ export class ApiStack extends Stack {
       }),
     );
 
-    const lambdaFunction = new PythonFunction(this, lambdaName, {
-      entry: path.join(__dirname, '../../app/'),
-      index: 'lambda.py',
-      handler: 'handler',
+    const lambdaFunction = new lambda.DockerImageFunction(this, lambdaName, {
+      code: lambda.DockerImageCode.fromImageAsset(
+        path.join(__dirname, '../../app/'), {
+          platform: Platform.LINUX_AMD64,
+        },
+      ),
       environment: {
         db_username: deploymentVars.dbusername,
         db_password: deploymentVars.dbpassword,
         azurellm_key: deploymentVars.llmapikey,
       },
       role: apigatewayRole,
-      runtime: lambda.Runtime.PYTHON_3_12,
       timeout: Duration.minutes(10),
+      ephemeralStorageSize: Size.mebibytes(1024),
+      memorySize: 1024,
     });
 
     const integration = new HttpLambdaIntegration('compasslambdaintegration', lambdaFunction);

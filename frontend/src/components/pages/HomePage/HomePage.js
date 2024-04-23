@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./homepage.module.scss";
 import Button from "../../ui-elements/Button/Button";
 import { ReactComponent as TitleIcon } from "../../../assets/images/icons/logo.svg";
-import { ReactComponent as AgendaIcon } from "../../../assets/images/icons/icon_agenda.svg";
+import { ReactComponent as JSONIcon } from "../../../assets/images/icons/json.svg";
 import { Card } from "./components/Card";
 import { ReactComponent as MicIcon } from "../../../assets/images/icons/icon_mic.svg";
 import { ReactComponent as ImportIcon } from "../../../assets/images/icons/icon_import.svg";
@@ -18,11 +18,11 @@ const HomePage = () => {
   const CardFirstRow = [
     {
       id: 1,
-      title: "Agenda",
+      title: "JSON File",
       content:
-        "Adding agenda before the map generation helps CommPass AI to create more accurate meeting minutes.",
+        "Adding JSON before the map generation helps CommPass AI to create more accurate meeting minutes.",
       iconPosition: "left",
-      icon: <AgendaIcon />,
+      icon: <JSONIcon />,
     },
     {
       id: 2,

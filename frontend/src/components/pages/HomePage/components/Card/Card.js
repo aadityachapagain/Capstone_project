@@ -18,6 +18,8 @@ const Card = ({
       fileInputRef.current.accept = "audio/*";
     } else if (title === "Transcription") {
       fileInputRef.current.accept = ".txt";
+    } else if (title === "JSON File") {
+      fileInputRef.current.accept = "application/json";
     }
     fileInputRef.current.click();
   };
@@ -43,12 +45,24 @@ const Card = ({
   };
   return (
     <div
-      className={cx(styles.card, className)}
+      className={cx(styles.card, className, {
+        [styles.csCard]: title === "Real-Time",
+      })}
       onClick={
-        title === "Audio" || title === "Transcription" ? handleImport : null
+        title === "Audio" || title === "Transcription" || title === "JSON File"
+          ? handleImport
+          : null
       }
     >
-      {title === "Audio" || title === "Transcription" ? (
+      {title === "Real-Time" ? (
+        <div className={styles.cSoon} style={{ opacity: 1 }}>
+          {" "}
+          Coming Soon!{" "}
+        </div>
+      ) : null}
+      {title === "Audio" ||
+      title === "Transcription" ||
+      title === "JSON File" ? (
         <input
           type="file"
           ref={fileInputRef}

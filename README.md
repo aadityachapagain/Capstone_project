@@ -2,7 +2,7 @@
 
 ## Project Strcture
 
-### Frontend 
+### Frontend
 
 inside frotnend directory , you will find react project
 
@@ -16,7 +16,7 @@ Deployment is done using projen
 
 ## How to deploy
 
-- you need to export aws key and secret to  deploy this project
+- you need to export aws key and secret to deploy this project
 
 ```
 export AWS_ACCESS_KEY_ID=<aws_key>
@@ -26,6 +26,5 @@ export AWS_REGION="ap-southeast-2"
 # finally run projen deploy
 npx projen deploy
 ```
-
 
 - all the deployment code can be seen inside src directory
