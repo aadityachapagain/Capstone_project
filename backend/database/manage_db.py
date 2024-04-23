@@ -42,37 +42,23 @@ class compassDB:
         )
         return False
 
-    def add_collection(self, database, collection, json_data):
+    def add_document(self, database, collection, json_data):
         new_db = self.db_client[database]
         new_col = new_db[collection]
         new_col.insert_one(json_data)
 
-    def delete_collection(self):
-        pass
-
-    def query_collection(self, database, collection, query):
+    def query_document(self, database, collection, query):
         mongo_db = self.db_client[database]
         mongo_col = mongo_db[collection]
+        logger.error(mongo_col)
+        logger.warning(query)
+        logger.info([idx for idx in mongo_col.find(query)])
         if [idx for idx in mongo_col.find(query)]:
             return [idx for idx in mongo_col.find(query)][0]
         return {}
 
-    def sort_collection(self):
-        pass
-
-    def drop_collection(self):
-        pass
-
-
-class databaseCRUD:
-    def __init(self):
-        pass
-
-    def insert_document(self):
-        pass
-
-    def update_document(self):
-        pass
-
-    def delete_document(self):
-        pass
+    def update_document(self, **kwargs):
+        mongo_db = self.db_client[kwargs.get("database")]
+        mongo_col = mongo_db[kwargs.get("collection")]
+        if kwargs.get("query", {}) and kwargs.get("updated_value", {}):
+            mongo_col.update_one(kwargs.get("query"), kwargs.get("updated_value"))
