@@ -87,3 +87,12 @@ table {
     border-radius: 8px;
   }
 }
+.delete {
+  margin-left: 10px;
+  > svg {
+    width: 25px;
+    height: 25px;
+    position: relative;
+    top: 5px;
+  }
+}
