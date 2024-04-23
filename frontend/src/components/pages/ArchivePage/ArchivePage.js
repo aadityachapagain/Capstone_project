@@ -67,8 +67,8 @@ const ArchivePage = () => {
     return (
       <div className={styles.root}>
         <div className={styles.header}>
-          <Logo />
-          <span>Archive</span>
+          <Logo onClick={() => navigate("/")} />
+          <span onClick={() => navigate("/")}>Archive</span>
           <Button
             className={styles.Button}
             variant="outlined"
@@ -100,8 +100,8 @@ const ArchivePage = () => {
   return (
     <div className={styles.root}>
       <div className={styles.header}>
-        <Logo />
-        <span>Archive</span>
+        <Logo onClick={() => navigate("/")} />
+        <span onClick={() => navigate("/")}>Archive</span>
         <Button
           className={styles.Button}
           variant="outlined"

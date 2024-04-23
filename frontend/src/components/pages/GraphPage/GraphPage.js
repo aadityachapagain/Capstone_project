@@ -6,8 +6,11 @@ import graphData from "./graphData.js";
 import { ReactComponent as Logo } from "../../../assets/images/icons/logo.svg";
 import { useParams } from "react-router-dom";
 import makeAPICall from "../../..//api/apiClient.js";
+import { useNavigate } from "react-router-dom";
 
 const GraphPage = () => {
+  const navigate = useNavigate();
+
   const [data, setData] = useState(null);
   const { route_id } = useParams();
   console.log("id", route_id);
@@ -43,8 +46,8 @@ const GraphPage = () => {
   return (
     <div className={styles.root}>
       <div className={styles.header}>
-        <Logo />
-        <span>Graph</span>
+        <Logo onClick={() => navigate("/")} />
+        <span onClick={() => navigate("/")}>Graph</span>
         <div className={styles.title}>
           Front end Discussion
           <div className={styles.graphContainer}>
