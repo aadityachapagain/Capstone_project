@@ -1,0 +1,123 @@
+{
+    "nodes": [
+      {
+        "id": "1",
+        "label": "Sarah provides update on TecSuite 2.5 release",
+        "group": "Development",
+        "weight": 5,
+        "reference": [[127, 322]]
+      },
+      {
+        "id": "2", 
+        "label": "Needs review of network configurations for API integration",
+        "group": "Network",
+        "weight": 4,
+        "reference": [[184, 292]]
+      },
+      {
+        "id": "3",
+        "label": "Database optimization required for new features",
+        "group": "Database",
+        "weight": 4,
+        "reference": [[307, 388]]
+      },
+      {
+        "id": "4",
+        "label": "Mike provides update on network performance",
+        "group": "Network",
+        "weight": 3,
+        "reference": [[441, 591]]
+      },
+      {
+        "id": "5",
+        "label": "Firewall hardware needs to be refreshed before end-of-life",
+        "group": "Network",
+        "weight": 4,
+        "reference": [[527, 612]]
+      },
+      {
+        "id": "6",
+        "label": "Tim discusses security incident and need for security awareness",
+        "group": "Security",
+        "weight": 4,
+        "reference": [[635, 889]]
+      },
+      {
+        "id": "7",
+        "label": "Need to implement two-factor authentication across all services",
+        "group": "Security",
+        "weight": 5,
+        "reference": [[809, 889], [1026, 1084]]
+      },
+      {
+        "id": "8",
+        "label": "David provides update on help desk activities",
+        "group": "Support",
+        "weight": 3,
+        "reference": [[1087, 1261]]
+      },
+      {
+        "id": "9",
+        "label": "Increase in email phishing attempts requires additional protection",
+        "group": "Security",
+        "weight": 4,
+        "reference": [[1212, 1296]]
+      }
+    ],
+    "links": [
+      {
+        "source": "1",
+        "target": "2",
+        "label": "Sarah needs Mike's team to review network configurations for integrating new payment API",
+        "weight": 3
+      },
+      {
+        "source": "1",
+        "target": "3",
+        "label": "Sarah needs Amy's team to work on database optimization for new TecSuite features",
+        "weight": 4
+      },
+      {
+        "source": "4",
+        "target": "5",
+        "label": "Mike identifies the need to refresh firewall hardware before end-of-life",
+        "weight": 4
+      },
+      {
+        "source": "6",
+        "target": "8",
+        "label": "Tim coordinated with David's team for the security incident simulation",
+        "weight": 3
+      },
+      {
+        "source": "6",
+        "target": "7",
+        "label": "Tim emphasizes the need to implement two-factor authentication",
+        "weight": 4
+      },
+      {
+        "source": "7",
+        "target": "1",
+        "label": "Sarah needs to plan for implementing two-factor authentication in TecSuite",
+        "weight": 4
+      },
+      {
+        "source": "8",
+        "target": "9",
+        "label": "David identifies increase in phishing attempts as a concern",
+        "weight": 3
+      },
+      {
+        "source": "9",
+        "target": "6",
+        "label": "Tim and David will partner to address the increased phishing threat",
+        "weight": 4
+      },
+      {
+        "source": "2",
+        "target": "4",
+        "label": "Mike's network team needs to support the API integration work",
+        "weight": 2
+      }
+    ]
+  }
