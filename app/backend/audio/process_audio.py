@@ -15,9 +15,9 @@ class processAudio:
     def generate_wav(self, **kwargs):
         audio_data = io.BytesIO(kwargs.get("data"))
         file_name = kwargs.get("filepath").split(".")[0]
-        audio_file = os.path.join("./tmp_audio", file_name + ".wav")
-        if not os.path.exists("./tmp_audio"):
-            os.mkdir("./tmp_audio")
+        audio_file = os.path.join("/tmp/audio", file_name + ".wav")
+        if not os.path.exists("/tmp/audio"):
+            os.mkdir("/tmp/audio")
         AudioSegment.from_file(audio_data).export(audio_file, format="wav")
         return audio_file
 

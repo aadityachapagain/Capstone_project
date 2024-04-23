@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./ArchivePage.module.scss";
 import Button from "../../ui-elements/Button/Button";
 import { ReactComponent as Logo } from "../../../assets/images/icons/logo.svg";
+import { ReactComponent as DeleteIcon } from "../../../assets/images/icons/icon-delete.svg";
 import {
   Table,
   Header,
@@ -66,8 +67,8 @@ const ArchivePage = () => {
     return (
       <div className={styles.root}>
         <div className={styles.header}>
-          <Logo />
-          <span>Archive</span>
+          <Logo onClick={() => navigate("/")} />
+          <span onClick={() => navigate("/")}>Archive</span>
           <Button
             className={styles.Button}
             variant="outlined"
@@ -99,8 +100,8 @@ const ArchivePage = () => {
   return (
     <div className={styles.root}>
       <div className={styles.header}>
-        <Logo />
-        <span>Archive</span>
+        <Logo onClick={() => navigate("/")} />
+        <span onClick={() => navigate("/")}>Archive</span>
         <Button
           className={styles.Button}
           variant="outlined"
@@ -138,6 +139,7 @@ const ArchivePage = () => {
                   <HeaderCell className={styles.th}>Summary</HeaderCell>
                   <HeaderCell className={styles.th}>Date/Time</HeaderCell>
                   <HeaderCell className={styles.th}>Status</HeaderCell>
+                  <HeaderCell className={styles.th}>Action</HeaderCell>
                 </HeaderRow>
               </Header>
               <Body>
@@ -154,6 +156,14 @@ const ArchivePage = () => {
                     <Cell>{item.summary}</Cell>
                     <Cell>{item.datetime}</Cell>
                     <Cell>{item.status}</Cell>
+                    <Cell>
+                      <span
+                        onClick={(e) => e.stopPropagation()}
+                        className={styles.delete}
+                      >
+                        <DeleteIcon />
+                      </span>
+                    </Cell>
                   </Row>
                 ))}
               </Body>
