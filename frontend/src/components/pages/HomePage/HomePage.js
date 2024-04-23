@@ -20,7 +20,7 @@ const HomePage = () => {
       id: 1,
       title: "JSON File",
       content:
-        "Adding agenda before the map generation helps CommPass AI to create more accurate meeting minutes.",
+        "Adding JSON before the map generation helps CommPass AI to create more accurate meeting minutes.",
       iconPosition: "left",
       icon: <JSONIcon />,
     },
