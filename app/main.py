@@ -221,4 +221,12 @@ async def read_item(fileb: UploadFile = File(...)):
         return HTTPException(status_code=405, detail="Item not found")
 
 
+@app.get("/api/user/getText")
+async def play_audio(db_token: str):
+    filedb = db_obj.db_client.compass_filedb
+    grid_as = gridfs.GridFS(filedb)
+    data_obj = grid_as.get(ObjectId(db_token))
+    return data_obj.read().decode()
+
+
 handler = Mangum(app)
