@@ -53,7 +53,8 @@ def read_root():
 
 @app.post("/api/user/upload")
 async def read_item(fileb: UploadFile = File(...)):
-    #test wether filename is txt or not
+    # test wether filename is txt or not
+
     if fileb.filename.split(".")[-1] == "mp3":
         audio_content = fileb.file.read()
         wav_audio = audio_obj.generate_wav(data=audio_content, filepath=fileb.filename)
@@ -69,10 +70,6 @@ async def read_item(fileb: UploadFile = File(...)):
         byte_content = fileb.file.read()
         audio_token = None
         source = "transcription"
-    elif fileb.filename.split("-1")[-1]=="json":
-        byte_content = b""
-        source = "json"
-        audio_token = None
     else:
         return HTTPException(status_code=405, detail="Item not found")
     # log timstamp
@@ -100,12 +97,6 @@ async def read_item(fileb: UploadFile = File(...)):
             "status": "In progress",
             "audio_token": str(audio_token),
         },
-    )
-    if fileb.filename.split("-1")[-1]=="json":
-        db_obj.add_document(
-        database="compass_db",
-        collection="mindmap",
-        json_data={"transcript_id": db_token, "data": fileb.file.read()},
     )
     return str(db_token)
 
@@ -188,17 +179,46 @@ async def play_audio(db_token: str):
         return "Completed!!!"
     else:
         return HTTPException(status_code=405, detail="Item not found")
-    
-# @app.get("/api/get/mindmap")
-# async def get_item(db_token: str):
-#     resp = db_obj.query_document(
-#         database="compass_db", collection="file_collection", query={"id_": db_token}
-#     )
-#     transcript_id = resp.get("audio_token", None)
-#     filedb = db_obj.db_client.compass_filedb
-#     grid_as = gridfs.GridFS(filedb)
-#     data_obj = grid_as.get(ObjectId(transcript_id))
-#     byte_audio = data_obj.read()
+
+
+@app.post("/api/user/upload_json")
+async def read_item(fileb: UploadFile = File(...)):
+    # test wether filename is txt or not
+
+    if fileb.filename.split(".")[-1] == "json":
+        # byte_content = b'JSON without transcribe'
+        timestamp = datetime.datetime.now()
+        # Load File into GridFS System
+        # Load file into MongoDb and extract a token
+        filedb = db_obj.db_client.compass_filedb
+        encoded_json = fileb.file.read()
+        grid_fs = gridfs.GridFS(filedb)
+        db_token = grid_fs.put(encoded_json, filename=fileb.filename)
+
+        # load filename and db_token in Database compass_db on collection called file_collection
+        db_obj.add_document(
+            database="compass_db",
+            collection="file_collection",
+            json_data={
+                "id_": str(db_token),
+                "filename": fileb.filename,
+                "attendees": "",
+                "source": "json",
+                "summary": "",
+                "datetime": str(timestamp),
+                "status": "Completed",
+                "audio_token": "",
+            },
+        )
+
+        db_obj.add_document(
+            database="compass_db",
+            collection="mindmap",
+            json_data={"transcript_id": str(db_token), "data": encoded_json.decode()},
+        )
+        return str(db_token)
+    else:
+        return HTTPException(status_code=405, detail="Item not found")
 
 
 handler = Mangum(app)
