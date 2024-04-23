@@ -7,7 +7,7 @@ import datetime
 from bson import ObjectId
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.encoders import jsonable_encoder
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, FileResponse
 from loguru import logger
 from backend.ml.ml_operation import aiModel
 from fastapi.middleware.cors import CORSMiddleware
@@ -176,7 +176,7 @@ async def play_audio(db_token: str):
         byte_audio = data_obj.read()
         with open("/tmp/audio/temp_audio.wav", "wb+") as f:
             f.write(byte_audio)
-        return "Completed!!!"
+        return FileResponse("/tmp/audio/temp_audio.wav")
     else:
         return HTTPException(status_code=405, detail="Item not found")
 
