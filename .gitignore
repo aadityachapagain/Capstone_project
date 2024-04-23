@@ -53,3 +53,6 @@ junit.xml
 .cdk.staging/
 .parcel-cache/
 !/.projenrc.ts
+*.pyc
+*.mp3
+*.wav
