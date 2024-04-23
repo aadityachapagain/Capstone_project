@@ -1,5 +1,6 @@
 # from typing import Annotated
 import os
+import shutil
 import urllib.parse
 import gridfs
 import datetime
@@ -7,7 +8,6 @@ from bson import ObjectId
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
-from pydantic import BaseModel
 from loguru import logger
 from backend.ml.ml_operation import aiModel
 from fastapi.middleware.cors import CORSMiddleware
@@ -64,6 +64,7 @@ async def read_item(fileb: UploadFile = File(...)):
         grid_as = gridfs.GridFS(audiodb)
         audio_token = grid_as.put(audio_content, filename=fileb.filename)
         source = "audio"
+        shutil.rmtree("/tmp/audio")
     elif fileb.filename.split(".")[-1] == "txt":
         byte_content = fileb.file.read()
         audio_token = None
@@ -158,18 +159,22 @@ async def get_item(transcript_id: str):
     return JSONResponse(content=json_data)
 
 
-@app.post("/api/user/play")
+@app.get("/api/user/play")
 async def play_audio(db_token: str):
     # test wether filename is txt or not
     resp = db_obj.query_document(
         database="compass_db", collection="file_collection", query={"id_": db_token}
     )
     audio_token = resp.get("audio_token", None)
+    if not os.path.isdir("/tmp/audio"):
+        os.mkdir("/tmp/audio")
     if audio_token:
         audiodb = db_obj.db_client.compass_audiodb
         grid_as = gridfs.GridFS(audiodb)
         data_obj = grid_as.get(ObjectId(audio_token))
-        audio_data = data_obj.read()
-        audio_obj.play(audio_data)
+        byte_audio = data_obj.read()
+        with open("/tmp/audio/temp_audio.wav", "wb+") as f:
+            f.write(byte_audio)
+        return "Completed!!!"
     else:
         return HTTPException(status_code=405, detail="Item not found")
