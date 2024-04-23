@@ -222,11 +222,38 @@ async def read_item(fileb: UploadFile = File(...)):
 
 
 @app.get("/api/user/getText")
-async def play_audio(db_token: str):
+async def get_text(db_token: str):
     filedb = db_obj.db_client.compass_filedb
     grid_as = gridfs.GridFS(filedb)
     data_obj = grid_as.get(ObjectId(db_token))
     return data_obj.read().decode()
+
+
+@app.get("/api/user/delete")
+async def delete_info(transcript_id: str):
+    resp = db_obj.query_document(
+        database="compass_db",
+        collection="file_collection",
+        query={"id_": transcript_id},
+    )
+    file_database = db_obj.db_client.compass_filedb
+    audio_database = db_obj.db_client.compass_audio
+    grid_fdb = gridfs.GridFS(file_database)
+    grid_adb = gridfs.GridFS(audio_database)
+    grid_fdb.delete(ObjectId(transcript_id))
+    if resp.get("source") == "audio":
+        grid_adb.delete(ObjectId(resp.get("audio_token")))
+    db_obj.delete_document(
+        database="compass_db",
+        collection="mindmap",
+        query={"transcript_id": transcript_id},
+    )
+    db_obj.delete_document(
+        database="compass_db",
+        collection="file_collection",
+        query={"id_": transcript_id},
+    )
+    return "Success"
 
 
 handler = Mangum(app)
