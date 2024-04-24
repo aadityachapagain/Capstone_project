@@ -7,6 +7,8 @@ import { ReactComponent as Logo } from "../../../assets/images/icons/logo.svg";
 import { useParams } from "react-router-dom";
 import makeAPICall from "../../..//api/apiClient.js";
 import { useNavigate } from "react-router-dom";
+import Button from "../../ui-elements/Button/Button";
+import { Link } from "react-router-dom";
 
 const GraphPage = () => {
   const navigate = useNavigate();
@@ -17,9 +19,6 @@ const GraphPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // const response = graphData;
-        // //const jsonData = await response.json();
-        // setData(...response);
         const fetchData = async () => {
           try {
             const response = await makeAPICall({
@@ -31,7 +30,6 @@ const GraphPage = () => {
             });
             setData(response);
           } catch (error) {
-            // Handle error
             console.error("Error fetching data:", error);
           }
         };
@@ -43,16 +41,26 @@ const GraphPage = () => {
 
     fetchData();
   }, []);
+
   return (
     <div className={styles.root}>
       <div className={styles.header}>
         <Logo onClick={() => navigate("/")} />
         <span onClick={() => navigate("/")}>Graph</span>
         <div className={styles.title}>
-          Front end Discussion
-          <div className={styles.graphContainer}>
-            <div className={styles.graph}>{data && <Graph data={data} />}</div>
-            <Box />
+          <div className={styles.buttonWrapper}>
+            <Button variant="outlined" size="medium">
+              <Link to="/archive" className={styles.customLink}>
+                Archive
+              </Link>
+            </Button>
+          </div>
+          <div className={styles.container}>
+            <div className={styles.discussionText}>Front end Discussion</div>
+            <div className={styles.graphContainer}>
+              <div className={styles.graph}>{data && <Graph data={data} />}</div>
+              <Box />
+            </div>
           </div>
         </div>
       </div>
