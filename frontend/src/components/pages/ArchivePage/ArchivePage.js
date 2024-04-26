@@ -97,6 +97,27 @@ const ArchivePage = () => {
     );
   }
 
+  const handleDelete = async (e, id) => {
+    e.stopPropagation();
+    try {
+      const response = await makeAPICall({
+        method: "GET",
+        endpoint: "/api/user/delete",
+        params: {
+          transcript_id: id,
+        },
+      });
+      const fData = {
+        nodes: data.nodes.filter((item) => item.id !== id),
+      };
+      console.log("response", response);
+      setData(fData);
+    } catch (error) {
+      // Handle error
+      console.error("Error fetching data:", error);
+    }
+  };
+
   return (
     <div className={styles.root}>
       <div className={styles.header}>
@@ -158,7 +179,7 @@ const ArchivePage = () => {
                     <Cell>{item.status}</Cell>
                     <Cell>
                       <span
-                        onClick={(e) => e.stopPropagation()}
+                        onClick={(e) => handleDelete(e, item.id)}
                         className={styles.delete}
                       >
                         <DeleteIcon />
