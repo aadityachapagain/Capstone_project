@@ -49,7 +49,11 @@ const GraphPage = () => {
         <span onClick={() => navigate("/")}>Graph</span>
         <div className={styles.title}>
           <div className={styles.buttonWrapper}>
-            <Button variant="outlined" size="medium">
+            <Button
+               className={styles.customLink}
+               variant="outlined"
+               size="medium"
+             >
               <Link to="/archive" className={styles.customLink}>
                 Archive
               </Link>

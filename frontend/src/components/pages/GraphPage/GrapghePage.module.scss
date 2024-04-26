@@ -215,19 +215,11 @@ table {
 .customLink {
   text-decoration: none;
   color: inherit;
-  background-color: #f9f9f9;
-  margin-right: 10px;
-  color: #999;
-  margin-bottom: 10px;
-  /* Add margin bottom for gap */
-  width: 150px;
-  /* Adjust the width as needed */
-  position: relative;
-  /* Ensure positioning context */
-  max-height: 500px;
-  /* Set maximum height */
-  overflow-y: auto;
-  /* Enable vertical scrolling */
+  float: right;
+
+  &:hover {
+    background: #e6e5e5;
+  }
 }
 
 .modalContent {
