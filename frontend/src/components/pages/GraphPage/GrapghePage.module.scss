@@ -117,8 +117,7 @@ table {
   /* Ensure positioning context */
   max-height: 500px;
   /* Set maximum height */
-  overflow-y: auto;
-  /* Enable vertical scrolling */
+
 }
 
 .dropdownContent {
@@ -129,29 +128,28 @@ table {
   transform: translateX(-50%);
   background-color: #f9f9f9;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
+  border-radius: 20px;
   /* Make border-radius rectangular */
   padding: 20px;
   z-index: 1;
-  width: 200px;
+  width: 260px;
   /* Adjust the width as needed */
   height: 500px;
   /* Adjust the height as needed */
+  font-family: Arial, sans-serif;
 }
 
 .card {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
   max-height: 100%;
-  /* Ensure the card fills the available space */
   overflow-y: auto;
-  /* Enable vertical scrolling */
+
 }
 
 .card p {
   margin: 0;
   font-size: 16px;
+  
   /* Increase font size */
 }
 
@@ -176,7 +174,7 @@ table {
   position: fixed;
   bottom: 20px;
   /* Adjust bottom spacing as needed */
-  right: 20px;
+  right: 80px;
   /* Adjust right spacing as needed */
 
   border-radius: 5px;

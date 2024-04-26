@@ -14,6 +14,8 @@ const GraphPage = () => {
   const navigate = useNavigate();
 
   const [data, setData] = useState(null);
+  const [data1, setData1] = useState(null);
+
   const { route_id } = useParams();
   console.log("id", route_id);
   useEffect(() => {
@@ -29,6 +31,15 @@ const GraphPage = () => {
               },
             });
             setData(response);
+            // Call the second API after the first one completes
+            const response2 = await makeAPICall({
+              method: "GET",
+              endpoint: "/api/user/getText",
+              params: {
+                db_token: route_id,
+              },
+            });
+            setData1(response2);
           } catch (error) {
             console.error("Error fetching data:", error);
           }
@@ -50,10 +61,10 @@ const GraphPage = () => {
         <div className={styles.title}>
           <div className={styles.buttonWrapper}>
             <Button
-               className={styles.customLink}
-               variant="outlined"
-               size="medium"
-             >
+              className={styles.customLink}
+              variant="outlined"
+              size="medium"
+            >
               <Link to="/archive" className={styles.customLink}>
                 Archive
               </Link>
@@ -63,7 +74,7 @@ const GraphPage = () => {
             <div className={styles.discussionText}>Front end Discussion</div>
             <div className={styles.graphContainer}>
               <div className={styles.graph}>{data && <Graph data={data} />}</div>
-              <Box />
+              <Box data={data1} />
             </div>
           </div>
         </div>
