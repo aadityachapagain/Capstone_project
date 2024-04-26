@@ -15,7 +15,7 @@ import {
 import makeAPICall from "../../..//api/apiClient.js";
 import { useNavigate } from "react-router-dom";
 import { BarLoader } from "react-spinners";
-
+import { Toast } from "react-bootstrap";
 const ArchivePage = () => {
   const uploadNew = () => {
     navigate("/");
@@ -25,6 +25,8 @@ const ArchivePage = () => {
   const [search, setSearch] = useState("");
   const [data, setData] = useState({ nodes: [] });
   const [loading, setLoading] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
 
   const handleSearch = (event) => {
     setSearch(event.target.value);
@@ -97,6 +99,31 @@ const ArchivePage = () => {
     );
   }
 
+  const handleDelete = async (e, id) => {
+    e.stopPropagation();
+    try {
+      const response = await makeAPICall({
+        method: "GET",
+        endpoint: "/api/user/delete",
+        params: {
+          transcript_id: id,
+        },
+      });
+      const fData = {
+        nodes: data.nodes.filter((item) => item.id !== id),
+      };
+      console.log("response", response);
+      setData(fData);
+      setShowToast(true);
+      setToastMessage("Successfully deleted transcript");
+    } catch (error) {
+      // Handle error
+      console.error("Error fetching data:", error);
+      setShowToast(true);
+      setToastMessage("Failed to delete transcript");
+    }
+  };
+
   return (
     <div className={styles.root}>
       <div className={styles.header}>
@@ -158,7 +185,7 @@ const ArchivePage = () => {
                     <Cell>{item.status}</Cell>
                     <Cell>
                       <span
-                        onClick={(e) => e.stopPropagation()}
+                        onClick={(e) => handleDelete(e, item.id)}
                         className={styles.delete}
                       >
                         <DeleteIcon />
@@ -171,6 +198,15 @@ const ArchivePage = () => {
           )}
         </Table>
       )}
+      <Toast
+        show={showToast}
+        onClose={() => setShowToast(false)}
+        delay={5000}
+        className={styles.toast}
+        autohide
+      >
+        <Toast.Body>{toastMessage}</Toast.Body>
+      </Toast>
     </div>
   );
 };
