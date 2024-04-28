@@ -144,20 +144,25 @@ async def get_item(transcript_id: str):
     grid_fs = gridfs.GridFS(filedb)
     data_obj = grid_fs.get(ObjectId(transcript_id))
     str_data = data_obj.read().decode()
-    json_response = eval(model_obj.gpt_model.extract_response(transcribe_data=str_data))
-    db_obj.add_document(
-        database="compass_db",
-        collection="mindmap",
-        json_data={"transcript_id": transcript_id, "data": json_response},
+    json_response = model_obj.gpt_model.extract_response(transcribe_data=str_data)
+    if isinstance(json_response, dict):
+        db_obj.add_document(
+            database="compass_db",
+            collection="mindmap",
+            json_data={"transcript_id": transcript_id, "data": json_response},
+        )
+        db_obj.update_document(
+            database="compass_db",
+            collection="file_collection",
+            query={"id_": transcript_id},
+            updated_value={"$set": {"status": "Completed"}},
+        )
+        json_data = jsonable_encoder(json_response)
+        return JSONResponse(content=json_data)
+    return HTTPException(
+        status_code=500,
+        detail="chatGPT failed parsing JSON, extracted redundant text with JSON!!",
     )
-    db_obj.update_document(
-        database="compass_db",
-        collection="file_collection",
-        query={"id_": transcript_id},
-        updated_value={"$set": {"status": "Completed"}},
-    )
-    json_data = jsonable_encoder(json_response)
-    return JSONResponse(content=json_data)
 
 
 @app.get("/api/user/play")
