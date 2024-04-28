@@ -3,10 +3,15 @@ import anthropic
 from loguru import logger
 from joblib import Parallel, delayed
 from transformers import pipeline
+from retry import retry
 from joblib import Parallel, delayed
 from transformers import AutoTokenizer, AutoModelForTokenClassification
-from langchain_openai import AzureChatOpenAI
-from langchain.schema import HumanMessage
+from openai import OpenAI
+from dotenv import load_dotenv
+
+
+# Load environment variables from .env file
+load_dotenv()
 
 
 class aiModel:
@@ -18,23 +23,24 @@ class aiModel:
 
 class gptModel:
     def __init__(self, **kwargs):
-        self.llm_model = AzureChatOpenAI(
-            openai_api_version=kwargs.get("api_version", "2023-07-01-preview"),
-            azure_deployment=kwargs.get("api_version", "gpt-4"),
-            model_name=kwargs.get("model_name", "gpt-4"),
-            azure_endpoint=kwargs.get(
-                "azure_endpoint", "https://allotrac-hackathon2024.openai.azure.com/"
-            ),
-            openai_api_key=os.getenv("azurellm_key"),
-            temperature=kwargs.get("temperature", 0),
-        )
-        self.prompt_path = kwargs.get("prompt_path", "./backend/ml/prompt.txt")
+        self.llm_model = OpenAI(api_key=os.getenv("llm_key"))
+        self.prompt_path = kwargs.get("prompt_path", "prompt.txt")
 
+    @retry(Exception, tries=4, delay=2)
     def extract_response(self, transcribe_data):
         with open(self.prompt_path, "r") as prompt_file:
             prompt_data = prompt_file.read()
         final_prompt = transcribe_data + "\n" + prompt_data
-        return self.llm_model([HumanMessage(content=final_prompt)]).content
+        try:
+            response = self.llm_model.chat.completions.create(
+                model="gpt-4", messages=[{"role": "system", "content": final_prompt}]
+            )
+            logger.info(response.choices[0].message.content)
+            json_response = eval(response.choices[0].message.content)
+            return json_response
+        except Exception as e:
+            logger.error(f"{e} found!!!")
+            raise Exception
 
 
 class NameEntityExtraction:
@@ -63,7 +69,9 @@ class NameEntityExtraction:
 class claudeSummarization:
     def __init__(self, **kwargs):
         self.model = anthropic.Anthropic(api_key=os.getenv("claude_token"))
-        self.prompt_path = kwargs.get("prompt_path", "./backend/ml/summerizer_prompt.txt")
+        self.prompt_path = kwargs.get(
+            "prompt_path", "./backend/ml/summerizer_prompt.txt"
+        )
 
     def extract_summary(self, transcript):
         with open(self.prompt_path, "r") as prompt_file:
