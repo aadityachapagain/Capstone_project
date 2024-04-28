@@ -14,4 +14,5 @@ python-multipart==0.0.9
 SpeechRecognition==3.10.3
 pydub==0.25.1
 joblib==1.4.0
+retry==0.9.2
 deepmultilingualpunctuation==1.0.1
