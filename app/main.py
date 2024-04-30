@@ -1,4 +1,9 @@
 # from typing import Annotated
+import sys
+
+# add path environment variable
+sys.path.append("/var/task/ffmpeg")
+
 import os
 import shutil
 import urllib.parse
@@ -14,7 +19,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from backend.database.manage_db import compassDB
 from backend.audio.process_audio import processAudio
 from mangum import Mangum
-
+import traceback
 from dotenv import load_dotenv
 
 
@@ -54,51 +59,54 @@ def read_root():
 @app.post("/api/user/upload")
 async def read_item(fileb: UploadFile = File(...)):
     # test wether filename is txt or not
-
-    if fileb.filename.split(".")[-1] == "mp3":
-        audio_content = fileb.file.read()
-        wav_audio = audio_obj.generate_wav(data=audio_content, filepath=fileb.filename)
-        audio_text = audio_obj.generate_text(wav_file=wav_audio)
-        processed_text = ".\n".join(audio_text.split("."))
-        byte_content = processed_text.encode()
-        audiodb = db_obj.db_client.compass_audiodb
-        grid_as = gridfs.GridFS(audiodb)
-        audio_token = grid_as.put(audio_content, filename=fileb.filename)
-        source = "audio"
-        shutil.rmtree("/tmp/audio")
-    elif fileb.filename.split(".")[-1] == "txt":
-        byte_content = fileb.file.read()
-        audio_token = None
-        source = "transcription"
-    else:
+    try:
+        if fileb.filename.split(".")[-1] == "mp3":
+            audio_content = fileb.file.read()
+            wav_audio = audio_obj.generate_wav(data=audio_content, filepath=fileb.filename)
+            audio_text = audio_obj.generate_text(wav_file=wav_audio)
+            processed_text = ".\n".join(audio_text.split("."))
+            byte_content = processed_text.encode()
+            audiodb = db_obj.db_client.compass_audiodb
+            grid_as = gridfs.GridFS(audiodb)
+            audio_token = grid_as.put(audio_content, filename=fileb.filename)
+            source = "audio"
+            shutil.rmtree("/tmp/audio")
+        elif fileb.filename.split(".")[-1] == "txt":
+            byte_content = fileb.file.read()
+            audio_token = None
+            source = "transcription"
+        else:
+            return HTTPException(status_code=405, detail="Item not found")
+        # log timstamp
+        timestamp = datetime.datetime.now()
+        # Load File into GridFS System
+        # Load file into MongoDb and extract a token
+        filedb = db_obj.db_client.compass_filedb
+        grid_fs = gridfs.GridFS(filedb)
+        db_token = grid_fs.put(byte_content, filename=fileb.filename)
+        # # Add person involved in the meeting
+        attendees = model_obj.ner_model.extract_names(byte_content.decode())
+        # # Extract Summary from the transcribe
+        summary = model_obj.summerizer_model.extract_summary(byte_content.decode())
+        # load filename and db_token in Database compass_db on collection called file_collection
+        db_obj.add_document(
+            database="compass_db",
+            collection="file_collection",
+            json_data={
+                "id_": str(db_token),
+                "filename": fileb.filename,
+                "attendees": ",".join(attendees),
+                "source": source,
+                "summary": summary,
+                "datetime": str(timestamp),
+                "status": "In progress",
+                "audio_token": str(audio_token),
+            },
+        )
+        return str(db_token)
+    except Exception as e:
+        logger.error(traceback.format_exc())
         return HTTPException(status_code=405, detail="Item not found")
-    # log timstamp
-    timestamp = datetime.datetime.now()
-    # Load File into GridFS System
-    # Load file into MongoDb and extract a token
-    filedb = db_obj.db_client.compass_filedb
-    grid_fs = gridfs.GridFS(filedb)
-    db_token = grid_fs.put(byte_content, filename=fileb.filename)
-    # # Add person involved in the meeting
-    attendees = model_obj.ner_model.extract_names(byte_content.decode())
-    # # Extract Summary from the transcribe
-    summary = model_obj.summerizer_model.extract_summary(byte_content.decode())
-    # load filename and db_token in Database compass_db on collection called file_collection
-    db_obj.add_document(
-        database="compass_db",
-        collection="file_collection",
-        json_data={
-            "id_": str(db_token),
-            "filename": fileb.filename,
-            "attendees": ",".join(attendees),
-            "source": source,
-            "summary": summary,
-            "datetime": str(timestamp),
-            "status": "In progress",
-            "audio_token": str(audio_token),
-        },
-    )
-    return str(db_token)
 
 
 @app.get("/api/get/filelist")

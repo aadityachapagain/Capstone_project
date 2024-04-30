@@ -96,7 +96,7 @@ export class ApiStack extends Stack {
       environment: {
         db_username: deploymentVars.dbusername,
         db_password: deploymentVars.dbpassword,
-        azurellm_key: deploymentVars.llmapikey,
+        llm_key: deploymentVars.llmapikey,
         claude_token: deploymentVars.claudeToken,
       },
       role: apigatewayRole,

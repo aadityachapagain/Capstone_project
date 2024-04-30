@@ -56,3 +56,5 @@ junit.xml
 *.pyc
 *.mp3
 *.wav
+
+app/ffmpeg-6.1-amd64-static/
