@@ -16,6 +16,7 @@ from backend.audio.process_audio import processAudio
 from mangum import Mangum
 import traceback
 from dotenv import load_dotenv
+import json
 
 # Load environment variables from .env file
 load_dotenv()
@@ -83,7 +84,10 @@ async def read_item(fileb: UploadFile = File(...)):
             db_obj.add_document(
                 database="compass_db",
                 collection="mindmap",
-                json_data={"transcript_id": str(db_token), "data": encoded_json.decode()},
+                json_data={
+                    "transcript_id": str(db_token), 
+                    "data": json.loads(encoded_json.decode())
+                },
             )
             return str(db_token)
         if fileb.filename.split(".")[-1] == "mp3":
