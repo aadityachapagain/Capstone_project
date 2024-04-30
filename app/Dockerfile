@@ -12,8 +12,9 @@ COPY main.py ./
 COPY transcript.txt ./
 COPY transcript2.txt ./
 COPY transcript3.txt ./
-ADD ffmpeg-6.1-amd64-static ./ffmpeg
-RUN export PYTHONPATH=$PYTHONPATH:/var/task/ffmpeg
+ADD model ./model
+COPY ffmpeg ./
+COPY ffprobe ./
 
 ENV TRANSFORMERS_CACHE="/tmp/transformers_cache"
 CMD ["main.handler"]
