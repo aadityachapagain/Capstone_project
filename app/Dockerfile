@@ -12,9 +12,9 @@ COPY main.py ./
 COPY transcript.txt ./
 COPY transcript2.txt ./
 COPY transcript3.txt ./
-ADD model ./model
-COPY ffmpeg ./
-COPY ffprobe ./
+ADD model /usr/bin/
+COPY ffmpeg /usr/bin/
+COPY ffprobe /usr/bin/
 
 ENV TRANSFORMERS_CACHE="/tmp/transformers_cache"
 CMD ["main.handler"]

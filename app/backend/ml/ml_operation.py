@@ -24,7 +24,7 @@ class aiModel:
 class gptModel:
     def __init__(self, **kwargs):
         self.llm_model = OpenAI(api_key=os.getenv("llm_key"))
-        self.prompt_path = kwargs.get("prompt_path", "prompt.txt")
+        self.prompt_path = kwargs.get("prompt_path", "./backend/ml/prompt.txt")
 
     @retry(Exception, tries=4, delay=2)
     def extract_response(self, transcribe_data):

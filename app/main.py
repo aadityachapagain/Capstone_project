@@ -17,23 +17,6 @@ from mangum import Mangum
 import traceback
 from dotenv import load_dotenv
 
-def which(program):
-    """
-    Mimics behavior of UNIX which command.
-    """
-    # Add .exe program extension for windows support
-    if os.name == "nt" and not program.endswith(".exe"):
-        program += ".exe"
-
-    envdir_list = [os.curdir] + os.environ["PATH"].split(os.pathsep)
-
-    for envdir in envdir_list:
-        program_path = os.path.join(envdir, program)
-        if os.path.isfile(program_path) and os.access(program_path, os.X_OK):
-            return program_path
-
-print("which ffprobe : ", which("ffprobe"))
-
 # Load environment variables from .env file
 load_dotenv()
 
@@ -71,6 +54,38 @@ def read_root():
 async def read_item(fileb: UploadFile = File(...)):
     # test wether filename is txt or not
     try:
+        if fileb.filename.split(".")[-1] == "json":
+            # byte_content = b'JSON without transcribe'
+            timestamp = datetime.datetime.now()
+            # Load File into GridFS System
+            # Load file into MongoDb and extract a token
+            filedb = db_obj.db_client.compass_filedb
+            encoded_json = fileb.file.read()
+            grid_fs = gridfs.GridFS(filedb)
+            db_token = grid_fs.put(encoded_json, filename=fileb.filename)
+
+            # load filename and db_token in Database compass_db on collection called file_collection
+            db_obj.add_document(
+                database="compass_db",
+                collection="file_collection",
+                json_data={
+                    "id_": str(db_token),
+                    "filename": fileb.filename,
+                    "attendees": "",
+                    "source": "json",
+                    "summary": "",
+                    "datetime": str(timestamp),
+                    "status": "Completed",
+                    "audio_token": "",
+                },
+            )
+
+            db_obj.add_document(
+                database="compass_db",
+                collection="mindmap",
+                json_data={"transcript_id": str(db_token), "data": encoded_json.decode()},
+            )
+            return str(db_token)
         if fileb.filename.split(".")[-1] == "mp3":
             audio_content = fileb.file.read()
             wav_audio = audio_obj.generate_wav(data=audio_content, filepath=fileb.filename)
@@ -163,7 +178,9 @@ async def get_item(transcript_id: str):
     grid_fs = gridfs.GridFS(filedb)
     data_obj = grid_fs.get(ObjectId(transcript_id))
     str_data = data_obj.read().decode()
+    logger.info("Extracting JSON from Transcribe Data")
     json_response = model_obj.gpt_model.extract_response(transcribe_data=str_data)
+    logger.info("JSON Extracted Successfully")
     if isinstance(json_response, dict):
         db_obj.add_document(
             database="compass_db",
