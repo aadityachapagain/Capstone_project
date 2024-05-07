@@ -63,7 +63,7 @@ async def read_item(fileb: UploadFile = File(...)):
             filedb = db_obj.db_client.compass_filedb
             encoded_json = fileb.file.read()
             grid_fs = gridfs.GridFS(filedb)
-            db_token = grid_fs.put(encoded_json, filename=fileb.filename)
+            db_token = grid_fs.put("".encode(), filename=fileb.filename)
 
             # load filename and db_token in Database compass_db on collection called file_collection
             db_obj.add_document(
