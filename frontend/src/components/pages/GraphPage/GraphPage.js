@@ -71,9 +71,11 @@ const GraphPage = () => {
             </Button>
           </div>
           <div className={styles.container}>
-            <div className={styles.discussionText}>Front end Discussion</div>
+            <div className={styles.discussionText}>Meeting Discussion</div>
             <div className={styles.graphContainer}>
-              <div className={styles.graph}>{data && <Graph data={data} />}</div>
+              <div className={styles.graph}>
+                {data && <Graph data={data} />}
+              </div>
               <Box data={data1} />
             </div>
           </div>
