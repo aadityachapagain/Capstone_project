@@ -1,8 +1,9 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import styles from "./card.module.scss";
 import cx from "classnames";
 import makeAPICall from "../../../../../api/apiClient";
 import { useNavigate } from "react-router-dom";
+import { Toast } from "react-bootstrap";
 const Card = ({
   title = "",
   content = "",
@@ -11,6 +12,8 @@ const Card = ({
   className,
 }) => {
   const fileInputRef = useRef(null);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
   const navigate = useNavigate();
   const handleImport = () => {
     console.log("handle");
@@ -29,6 +32,8 @@ const Card = ({
     if (file) {
       //Integrate the upload api here
       console.log("Selected file:", file);
+      setShowToast(true);
+      setToastMessage("Uploading... Please wait!");
       try {
         const response = await makeAPICall({
           method: "POST",
@@ -36,9 +41,13 @@ const Card = ({
           payload: { fileb: file },
           contentType: "multipart/form-data",
         });
-        navigate("/archive");
+        setShowToast(true);
+        setToastMessage("Successfully uploaded. Please check in archive page");
+        // navigate("/archive");
         console.log("Response", response);
       } catch (e) {
+        setShowToast(true);
+        setToastMessage("Failed to delete transcript");
         //error message
       }
     }
@@ -84,6 +93,15 @@ const Card = ({
       )}
       <div className={styles.card_title}>{title}</div>
       <div className={styles.card_text}>{content}</div>
+      <Toast
+        show={showToast}
+        onClose={() => setShowToast(false)}
+        delay={5000}
+        className={styles.toast}
+        autohide
+      >
+        <Toast.Body>{toastMessage}</Toast.Body>
+      </Toast>
     </div>
   );
 };
