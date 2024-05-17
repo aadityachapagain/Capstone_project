@@ -97,65 +97,85 @@ table {
 .dropdownButton {
   background-color: #f9f9f9;
   color: #999;
-  padding: 20px; /* Adjust padding as needed */
+  padding: 20px;
+  /* Adjust padding as needed */
   border: none;
   cursor: pointer;
-  margin-bottom: 10px; /* Add margin bottom for gap */
-  width: 200px; /* Adjust the width as needed */
-  border-radius: 10px; /* Make border-radius rectangular */
+  margin-bottom: 10px;
+  /* Add margin bottom for gap */
+  width: 200px;
+  /* Adjust the width as needed */
+  border-radius: 10px;
+  /* Make border-radius rectangular */
   display: flex;
   flex-direction: column-reverse;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add box-shadow for elevation */
-  position: relative; /* Ensure positioning context */
-  max-height: 500px; /* Set maximum height */
-  overflow-y: auto; /* Enable vertical scrolling */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* Add box-shadow for elevation */
+  position: relative;
+  /* Ensure positioning context */
+  max-height: 500px;
+  /* Set maximum height */
+
 }
 
 .dropdownContent {
   position: absolute;
-  bottom: calc(100% + 10px); /* Position above the button with a gap */
+  bottom: calc(100% + 10px);
+  /* Position above the button with a gap */
   left: 50%;
   transform: translateX(-50%);
   background-color: #f9f9f9;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  border-radius: 10px; /* Make border-radius rectangular */
+  border-radius: 20px;
+  /* Make border-radius rectangular */
   padding: 20px;
   z-index: 1;
-  width: 200px; /* Adjust the width as needed */
-  height: 500px; /* Adjust the height as needed */
+  width: 260px;
+  /* Adjust the width as needed */
+  height: 500px;
+  /* Adjust the height as needed */
+  font-family: Arial, sans-serif;
 }
 
 .card {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  max-height: 100%; /* Ensure the card fills the available space */
-  overflow-y: auto; /* Enable vertical scrolling */
+  max-height: 100%;
+  overflow-y: auto;
+
 }
 
 .card p {
   margin: 0;
-  font-size: 16px; /* Increase font size */
+  font-size: 16px;
+  
+  /* Increase font size */
 }
 
 .closeButton {
-  position: absolute; /* Position the button absolutely */
-  top: -34px; /* Adjust top position as needed */
-  right: -10px; /* Adjust right position as needed */
+  position: absolute;
+  /* Position the button absolutely */
+  top: -34px;
+  /* Adjust top position as needed */
+  right: -10px;
+  /* Adjust right position as needed */
   background-color: transparent;
   border: none;
-  font-size: 16px; /* Decrease button font size */
+  font-size: 16px;
+  /* Decrease button font size */
   cursor: pointer;
   color: #999;
-  height: 20px; /* Decrease button height */
+  height: 20px;
+  /* Decrease button height */
 }
 
 .boxcontainer {
   position: fixed;
-  bottom: 20px; /* Adjust bottom spacing as needed */
-  right: 20px; /* Adjust right spacing as needed */
+  bottom: 20px;
+  /* Adjust bottom spacing as needed */
+  right: 80px;
+  /* Adjust right spacing as needed */
 
   border-radius: 5px;
   padding: 10px;
@@ -167,39 +187,88 @@ table {
   display: none;
   position: fixed;
   z-index: 1;
-  left: 25%;
-  top: 25%;
-  width: 50%;
-  height: 25%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  /* Center the modal horizontally and vertically */
+  width: 30%;
+  /* Set width to 90% of the viewport width */
+  max-width: 600px;
+  /* Set a maximum width for the modal */
+  height: auto;
+  /* Let the height adjust to content */
+  max-height: 80%;
+  /* Set a maximum height for the modal */
   background-color: #f9f9f9;
-  border-radius: 10px; /* Rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add box shadow for elevation */
+  border-radius: 10px;
+  /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* Add box shadow for elevation */
+  font-family: Arial, sans-serif;
+  /* Change font family */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  /* Add text shadow for better visibility */
+}
+
+.customLink {
+  text-decoration: none;
+  color: inherit;
+  float: right;
+
+  &:hover {
+    background: #e6e5e5;
+  }
 }
 
 .modalContent {
-  color: white; /* White text color */
-  width: 100%; /* Take up full width of modal */
-  height: 100%; /* Take up full height of modal */
-  text-align: center; /* Center text horizontally */
+  color: white;
+  /* White text color */
+  width: 100%;
+  /* Take up full width of modal */
+  height: 100%;
+  /* Take up full height of modal */
+  text-align: center;
+  /* Center text horizontally */
   display: flex;
   flex-direction: column;
+  font-family: Arial, sans-serif;
+  /* Change font family */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  /* Add text shadow for better visibility */
   justify-content: center;
 }
 
+
 .close {
-  top: -34px; /* Adjust top position as needed */
-  right: -10px; /* Adjust right position as needed */
+  position: absolute;
+  /* Position the close button relative to the modal */
+  top: -30px;
+  /* Adjust top position to move the button outside of the modal box */
+  left: -30px;
+  /* Adjust left position to move the button outside of the modal box */
   background-color: transparent;
   border: none;
-  font-size: 16px; /* Decrease button font size */
+  font-size: 32px;
+  /* Increase button font size */
   cursor: pointer;
   color: #999;
-  height: 20px; /* Decrease button height */
+  width: 60px;
+  /* Increase button width */
+  height: 60px;
+  /* Increase button height */
+  z-index: 9999;
+  /* Ensure the close button appears above other elements */
+  font-family: Arial, sans-serif;
+  /* Change font family */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  /* Add text shadow for better visibility */
 }
+
 
 .close:hover,
 .close:focus {
-  color: #eee; /* Lighter color on hover/focus */
+  color: #eee;
+  /* Lighter color on hover/focus */
   text-decoration: none;
 }
 
@@ -210,30 +279,46 @@ table {
 }
 
 .downloadButtonsContainer {
-  display: flex; /* Use flexbox */
-  flex-wrap: wrap; /* Allow wrapping if needed */
+  display: flex;
+  /* Use flexbox */
+  flex-wrap: wrap;
+  /* Allow wrapping if needed */
 }
 
 .downloadButton {
   background-color: #f9f9f9;
   margin-right: 10px;
   color: #999;
-  padding: 20px; /* Adjust padding as needed */
+  padding: 20px;
+  /* Adjust padding as needed */
   border: none;
   cursor: pointer;
-  margin-bottom: 10px; /* Add margin bottom for gap */
-  width: 200px; /* Adjust the width as needed */
-  border-radius: 10px; /* Make border-radius rectangular */
+  margin-bottom: 10px;
+  /* Add margin bottom for gap */
+  width: 200px;
+  /* Adjust the width as needed */
+  border-radius: 10px;
+  /* Make border-radius rectangular */
   display: flex;
   flex-direction: column-reverse;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add box-shadow for elevation */
-  position: relative; /* Ensure positioning context */
-  max-height: 500px; /* Set maximum height */
-  overflow-y: auto; /* Enable vertical scrolling */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* Add box-shadow for elevation */
+  position: relative;
+  /* Ensure positioning context */
+  max-height: 500px;
+  /* Set maximum height */
+  overflow-y: auto;
+  /* Enable vertical scrolling */
 }
 
 .downloadButton:hover {
-  background-color: #e5e5e5; /* Lighter background color on hover */
+  background-color: #e5e5e5;
+  /* Lighter background color on hover */
+}
+
+
+.container {
+  margin-top: 13px;
 }

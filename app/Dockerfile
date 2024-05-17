@@ -8,11 +8,13 @@ COPY requirements.txt ./
 RUN pip3 install --no-cache-dir -r requirements.txt
 
 ADD backend ./backend
-ADD database ./database
 COPY main.py ./
 COPY transcript.txt ./
 COPY transcript2.txt ./
 COPY transcript3.txt ./
+ADD model /usr/bin/
+COPY ffmpeg /usr/bin/
+COPY ffprobe /usr/bin/
 
 ENV TRANSFORMERS_CACHE="/tmp/transformers_cache"
 CMD ["main.handler"]

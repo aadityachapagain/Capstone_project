@@ -7,19 +7,20 @@ import { ReactComponent as Logo } from "../../../assets/images/icons/logo.svg";
 import { useParams } from "react-router-dom";
 import makeAPICall from "../../..//api/apiClient.js";
 import { useNavigate } from "react-router-dom";
+import Button from "../../ui-elements/Button/Button";
+import { Link } from "react-router-dom";
 
 const GraphPage = () => {
   const navigate = useNavigate();
 
   const [data, setData] = useState(null);
+  const [data1, setData1] = useState(null);
+
   const { route_id } = useParams();
   console.log("id", route_id);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // const response = graphData;
-        // //const jsonData = await response.json();
-        // setData(...response);
         const fetchData = async () => {
           try {
             const response = await makeAPICall({
@@ -30,8 +31,16 @@ const GraphPage = () => {
               },
             });
             setData(response);
+            // Call the second API after the first one completes
+            const response2 = await makeAPICall({
+              method: "GET",
+              endpoint: "/api/user/getText",
+              params: {
+                db_token: route_id,
+              },
+            });
+            setData1(response2);
           } catch (error) {
-            // Handle error
             console.error("Error fetching data:", error);
           }
         };
@@ -43,16 +52,32 @@ const GraphPage = () => {
 
     fetchData();
   }, []);
+
   return (
     <div className={styles.root}>
       <div className={styles.header}>
         <Logo onClick={() => navigate("/")} />
         <span onClick={() => navigate("/")}>Graph</span>
         <div className={styles.title}>
-          Front end Discussion
-          <div className={styles.graphContainer}>
-            <div className={styles.graph}>{data && <Graph data={data} />}</div>
-            <Box />
+          <div className={styles.buttonWrapper}>
+            <Button
+              className={styles.customLink}
+              variant="outlined"
+              size="medium"
+            >
+              <Link to="/archive" className={styles.customLink}>
+                Archive
+              </Link>
+            </Button>
+          </div>
+          <div className={styles.container}>
+            <div className={styles.discussionText}>Meeting Discussion</div>
+            <div className={styles.graphContainer}>
+              <div className={styles.graph}>
+                {data && <Graph data={data} />}
+              </div>
+              <Box data={data1} />
+            </div>
           </div>
         </div>
       </div>

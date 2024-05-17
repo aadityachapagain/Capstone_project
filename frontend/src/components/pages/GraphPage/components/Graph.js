@@ -16,8 +16,8 @@ const Graph = ({ data }) => {
     const width = 2880;
     const height = 1620;
     const color = d3.scaleOrdinal(d3.schemeCategory10);
-    let nodeSize = 50;
-    let linkLength = 15;
+    let nodeSize = 150;
+    let linkLength = 12;
     let linkLabelSize = 25;
 
     const links = data.links.map((d) => ({ ...d }));
@@ -118,7 +118,7 @@ const Graph = ({ data }) => {
       .selectAll("line")
       .data(links)
       .join("line")
-      .attr("stroke-width", (d) => d.weight * 4)
+      .attr("stroke-width", (d) => d.weight * 6)
       .attr("stroke", "#999")
       .attr("stroke-opacity", 0.2)
       .attr("marker-end", "url(#end)");
@@ -130,9 +130,10 @@ const Graph = ({ data }) => {
       .append("text")
       .attr("class", "link-label")
       .attr("text-anchor", "middle")
-      .attr("fill", "#555")
-      .style("font-size", linkLabelSize)
+      .attr("fill", "#333") // Change the color of link labels
+      .style("font-size", linkLabelSize) // Increase font size
       .text((d) => d.label)
+      .attr("dy", "-0.5em") // Offset the text position
       .on("click", (event, d) => handleLinkTextClick(event, d)); // Pass event and data to handleLinkTextClick
 
     const nodeGroup = svg.append("g").attr("class", "nodes");
@@ -240,7 +241,7 @@ const Graph = ({ data }) => {
               Math.sqrt(
                 (d.target.x - d.source.x) ** 2 + (d.target.y - d.source.y) ** 2
               )) *
-              (d.target.x - d.source.x)
+            (d.target.x - d.source.x)
         )
         .attr(
           "y2",
@@ -250,7 +251,7 @@ const Graph = ({ data }) => {
               Math.sqrt(
                 (d.target.x - d.source.x) ** 2 + (d.target.y - d.source.y) ** 2
               )) *
-              (d.target.y - d.source.y)
+            (d.target.y - d.source.y)
         );
 
       node.attr("transform", (d) => `translate(${d.x},${d.y})`);

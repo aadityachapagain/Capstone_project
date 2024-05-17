@@ -96,12 +96,13 @@ export class ApiStack extends Stack {
       environment: {
         db_username: deploymentVars.dbusername,
         db_password: deploymentVars.dbpassword,
-        azurellm_key: deploymentVars.llmapikey,
+        llm_key: deploymentVars.llmapikey,
+        claude_token: deploymentVars.claudeToken,
       },
       role: apigatewayRole,
       timeout: Duration.minutes(10),
-      ephemeralStorageSize: Size.mebibytes(1024),
-      memorySize: 1024,
+      ephemeralStorageSize: Size.mebibytes(10240),
+      memorySize: 6144,
     });
 
     const integration = new HttpLambdaIntegration('compasslambdaintegration', lambdaFunction);
