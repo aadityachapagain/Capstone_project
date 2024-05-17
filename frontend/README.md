@@ -1,32 +1,37 @@
-# Capstone Project: MindMap
+**Overview**
 
-Details to be filled up soon...
+The user interface for the "CommPass" project is built using React, specifically version 18.2.0. We are using Node.js version 20.4.0 and npm version 9.7.2.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Getting Started**
 
-## Available Scripts
+**Tech Stack**
 
-In the project directory, you can run:
+- Reactjs
+- React-Router-Dom
+- Axios
+- D3js
+- React-Table
 
-### `npm start`
+**Development Mode**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+To run the app in development mode, go to the frontend project directory and execute:
 
-The page will reload when you make changes.\
+**npm start**
+
+Open http://localhost:3000 to view it in your browser.
+
+The page will reload when you make changes.
+
 You may also see any lint errors in the console.
 
-### `npm test`
+**Production Build**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+To create a production build of the application, go to the frontend project directory and execute:
 
-### `npm run build`
+**npm run build**
 
-Builds the app for production to the `build` folder.\
+To build the app for production to the build folder.
+
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+For our project we have deployed the build file to Vercel. Vercel is a cloud platform for static sites and serverless functions that enables developers to deploy websites and applications quickly and efficiently.
